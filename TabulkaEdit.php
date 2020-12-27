@@ -9,14 +9,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="function.js"></script>
+  <script src="TabulkaEdit.js"></script>
   <link rel="stylesheet" href="stylesheet.css">
 </head>
 
 <body class="body">
   <?php include 'header.php'; ?>
   <div class="container">
-    <h1> <?php echo $_GET['Nazev']; ?></h1>
+    <h1 id="Tabulka"> <?php echo $_GET['Nazev']; ?></h1>
+    <div id="displaymessage"></div>
 
     <?php
     include 'config.php';
@@ -28,7 +29,7 @@
     echo '<table class="table table-bordered" id="table"> <thead><tr>';
     $i = 0;
     while ($rowN = mysqli_fetch_array($result)) {
-      echo '<th>' . $rowN['Field'] . "</th>";
+      echo '<th id="'.$rowN['Field'].'">' . $rowN['Field'] . "</th>";
       $Nadpisy[$i] = $rowN['Field'];
       $i = $i + 1;
     }
@@ -40,13 +41,14 @@
 
 
     while ($data = mysqli_fetch_array($result)) {
+      $id = $data["ID"];
       foreach ($Nadpisy as &$nadpis) {
-        echo "<td>" . $data[$nadpis] . "</td>";
+        echo "<td id=".$nadpis.">" . $data[$nadpis] . "</td>";
       }
       echo '<td>
-                <a class="add" title="Add" data-toggle="tooltip" id="<?php echo $student_id; ?>"><i class="fa fa-plus"></i></a>
-                <a class="edit" title="Edit" data-toggle="tooltip" id="<?php echo $student_id; ?>"><i class="fa fa-pencil"></i></a>
-                <a class="delete" title="Delete" data-toggle="tooltip" id="<?php echo $student_id; ?>"><i class="fa fa-trash-o"></i></a>
+                <a class="add" title="Add" data-toggle="tooltip" id="'. $id.'"><i class="fa fa-plus"></i></a>
+                <a class="edit" title="Edit" data-toggle="tooltip" id="'. $id.'"><i class="fa fa-pencil"></i></a>
+                <a class="delete" title="Delete" data-toggle="tooltip" id="'. $id.'"><i class="fa fa-trash-o"></i></a>
                 </td>';
       echo "</tr>";
     }
@@ -57,7 +59,7 @@
 
 
     ?>
-    <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Přidat řádek</button>
+    <button type="button" class="btn btn-info add-new" ><i class="fa fa-plus"></i> Přidat řádek</button>
   </div>
 
   
