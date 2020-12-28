@@ -13,7 +13,6 @@ catch(exception $e)
     {
     echo "Connection failed: " . $e->getMessage();
     }
-    return $conn; 
-    
-    
+    return $conn;    
 }
+

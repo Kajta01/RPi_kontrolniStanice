@@ -24,11 +24,18 @@ $upraveneHodnoty = rtrim($hodnoty, ", ");
  //echo $sql;
  $result = mysqli_query($conn, $sql);
  if($result == 1){
-  echo "<p class='btn btn-info' align='center'>New record created successfully</p>";
+  $message = "<p class='btn btn-info' align='center'>New record created successfully</p>";
  }
  else{
-  echo "<p class='btn btn-danger' align='center:'>Error: " . $sql . "<br>" . mysqli_error($conn)."</p>";
+  $message =  "<p class='btn btn-danger' align='center:'>Error: " . $sql . "<br>" . mysqli_error($conn).
+  "<br> <strong> !!! Pres F5 !!!</strong></p>";
  }
  mysqli_close($conn);
+
+$response = array();
+$response['success'] = $result;
+$response['general_message'] = $message;
+$response['sql'] = $sql;
+exit(json_encode($response));
 
 ?>

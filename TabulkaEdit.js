@@ -6,15 +6,30 @@ $(document).ready(function () {
     // Append table with add row form on add new button click
     $(".add-new").click(function () {
         $(this).attr("disabled", "disabled");
+        
         var index = $("table tbody tr:last-child").index();
-        var row = '<tr>';
+        var odlID = Number($("table tbody tr:last-child #ID").html());
+        console.log(odlID);
+        if(isNaN(odlID)) {
+            odlID = 0;
+            console.log("new");
+        }
+        var row = '<tr> <td id="ID">' + (odlID + 1) + '</td>';
         var i;
-        for (i = 0; i < document.getElementById('table').rows[0].cells.length - 1; i++) {
+        for (i = 1; i < document.getElementById('table').rows[0].cells.length - 1; i++) {
             var id = document.getElementById('table').rows[0].cells[i].id;
             row = row + '<td id="'+id+'"><input type="text" class="form-control" name="'+id+'" id="'+id+'"></td>';
         }
-        row = row + '<td>' + actions + '</td>' +
-            '</tr>';
+        if(actions != null){
+        row = row + '<td>' + actions + '</td>' + '</tr>';
+        }
+        else {
+        row = row + '<td>' 
+        +'<a class="add" title="Add" data-toggle="tooltip"><i class="fa fa-plus"></i></a>'
+        +'<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>'
+        +'<a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>'
+        +'</td> </tr>';
+        }
         $("table").append(row);
         $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
         $('[data-toggle="tooltip"]').tooltip();
@@ -39,14 +54,26 @@ $(document).ready(function () {
             var tabulka = document.getElementById('Tabulka').textContent;
             console.log(tabulka);
             var dict = new Object();
+            dict["ID"]=$("table tbody tr:last-child #ID").html();
             var input = $(this).parents("tr").find('input[type="text"]');
             input.each(function () {
-                dict[$(this).attr('id')]=$(this).val();
+                dict[$(this).attr('id')]='"' + $(this).val() + '"';
             });
             console.log(dict);
             var jsonDict = JSON.stringify(dict);
-            $.post("ajaxAdd.php", { Tabulka: tabulka ,data: jsonDict }, function (data) {
-                $("#displaymessage").html(data);
+            $.post("ajaxAdd.php", { Tabulka: tabulka ,data: jsonDict }, function (Jdata) {
+                data = JSON.parse(Jdata);
+
+                console.log(data['success']);
+                if(data['success']){
+                    $("table tbody tr:last-child").addClass('importantGreenBackground');
+                }
+                else{
+                    $("table tbody tr:last-child").addClass('importantRedBackground');
+                }
+                $("#displaymessage1").html(data['general_message']);
+                $("#displaymessage2").html(data['general_message']);
+                console.log(data['sql']);
             });
 
 

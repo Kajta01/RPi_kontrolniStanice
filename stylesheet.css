@@ -10,6 +10,19 @@ html{
     margin: 0 auto;
     text-align: center;
 }
+.menu{
+    border-bottom:2px solid black;
+}
+.menu ul{
+    display: flex;
+}
+.menu li{
+    display: inline-block;
+    flex: 2;
+}
+.menu a{
+    width: 100%; 
+}
 
 .button a{
     text-decoration: none;
@@ -34,9 +47,7 @@ ul{
     padding: 0;
 }
 
-.menu{
-    border-bottom:2px solid black;
-}
+
 
 .akce{
     width: 15%;
@@ -44,6 +55,29 @@ ul{
 .table{
     min-width: 600px; 
 }
+
+tr #ID{
+    background-color: lightgray;
+    width: 4em;
+}
+.message{
+    width: 100%;
+}
+.btn{
+    width: 100% !important;
+}
+.add-new{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.importantRedBackground, .importantRedBackground #ID { background-color: red !important; }
+.importantGreenBackground, .importantGreenBackground #ID { background-color: lightgreen !important; }
+
+#ID .form-control{
+    width: 100%;
+    background-color: white;
+}
+
 
 
     .table-wrapper {

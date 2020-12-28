@@ -17,7 +17,7 @@
   <?php include 'header.php'; ?>
   <div class="container">
     <h1 id="Tabulka"> <?php echo $_GET['Nazev']; ?></h1>
-    <div id="displaymessage"></div>
+    <div id="displaymessage1" class= "message"></div>
 
     <?php
     include 'config.php';
@@ -46,9 +46,9 @@
         echo "<td id=".$nadpis.">" . $data[$nadpis] . "</td>";
       }
       echo '<td>
-                <a class="add" title="Add" data-toggle="tooltip" id="'. $id.'"><i class="fa fa-plus"></i></a>
-                <a class="edit" title="Edit" data-toggle="tooltip" id="'. $id.'"><i class="fa fa-pencil"></i></a>
-                <a class="delete" title="Delete" data-toggle="tooltip" id="'. $id.'"><i class="fa fa-trash-o"></i></a>
+                <a class="add" title="Add" data-toggle="tooltip"><i class="fa fa-plus"></i></a>
+                <a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
+                <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
                 </td>';
       echo "</tr>";
     }
@@ -59,6 +59,7 @@
 
 
     ?>
+    <div id="displaymessage2" class= "message"></div>
     <button type="button" class="btn btn-info add-new" ><i class="fa fa-plus"></i> Přidat řádek</button>
   </div>
 
