@@ -24,7 +24,7 @@ $upraveneHodnoty = rtrim($hodnoty, ", ");
  //echo $sql;
  $result = mysqli_query($conn, $sql);
  if($result == 1){
-  $message = "<p class='btn btn-info' align='center'>New record created successfully</p>";
+  $message = "<p class='btn btn-success' align='center'>New record created successfully</p>";
  }
  else{
   $message =  "<p class='btn btn-danger' align='center:'>Error: " . $sql . "<br>" . mysqli_error($conn).

@@ -12,13 +12,17 @@ html{
 }
 .menu{
     border-bottom:2px solid black;
+   
 }
 .menu ul{
     display: flex;
+    justify-content: space-around;
+    max-width: 750px;
+    margin: 10px auto;
 }
 .menu li{
     display: inline-block;
-    flex: 2;
+  
 }
 .menu a{
     width: 100%; 
@@ -65,6 +69,7 @@ tr #ID{
 }
 .btn{
     width: 100% !important;
+    height: 100%;
 }
 .add-new{
     margin-top: 10px;
@@ -76,6 +81,19 @@ tr #ID{
 #ID .form-control{
     width: 100%;
     background-color: white;
+}
+select{
+    width: 100%;
+}
+#displaymessage{
+    position: fixed;
+    height: 5em;
+
+    left: 0;
+
+}
+.itputTime{
+    width: 100%;
 }
 
 

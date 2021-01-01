@@ -14,10 +14,11 @@
 </head>
 
 <body class="body">
-  <?php include 'header.php'; ?>
+  <?php include 'headerEdit.php'; ?>
   <div class="container">
+    <div id="displaymessage" class= "message"></div>
     <h1 id="Tabulka"> <?php echo $_GET['Nazev']; ?></h1>
-    <div id="displaymessage1" class= "message"></div>
+    
 
     <?php
     include 'config.php';
@@ -59,8 +60,8 @@
 
 
     ?>
-    <div id="displaymessage2" class= "message"></div>
     <button type="button" class="btn btn-info add-new" ><i class="fa fa-plus"></i> Přidat řádek</button>
+
   </div>
 
   

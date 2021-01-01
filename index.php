@@ -14,8 +14,8 @@
     <div class="uvod">
         <h1>Hlavní tabulky</h1>
         <ul>
-            <li class="button"><a href="Tabulka.php?Nazev=Cipy">Čipy</a></li>
-            <li class="button"><a href="Tabulka.php?Nazev=Ucastnici">Účastníci</a></li>
+            <li class="button"><a href="Tabulka.php?Nazev=Cip">Čipy</a></li>
+            <li class="button"><a href="Tabulka.php?Nazev=Ucastnik">Účastníci</a></li>
             <li class="button"><a href="Tabulka.php?Nazev=Stanoviste">Seznam stanovišť</a></li>
             <li class="button"><a href="Tabulka.php?Nazev=ZtraceneZivoty">Ztracené životy</a></li>
             <li class="button"><a href="Tabulka.php?Nazev=Zavod">Závod</a></li>

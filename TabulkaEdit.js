@@ -9,16 +9,35 @@ $(document).ready(function () {
         
         var index = $("table tbody tr:last-child").index();
         var odlID = Number($("table tbody tr:last-child #ID").html());
-        console.log(odlID);
         if(isNaN(odlID)) {
             odlID = 0;
-            console.log("new");
         }
-        var row = '<tr> <td id="ID">' + (odlID + 1) + '</td>';
+        var row = '<tr class="new"> <td id="ID">' + (odlID + 1) + '</td>';
         var i;
         for (i = 1; i < document.getElementById('table').rows[0].cells.length - 1; i++) {
             var id = document.getElementById('table').rows[0].cells[i].id;
-            row = row + '<td id="'+id+'"><input type="text" class="form-control" name="'+id+'" id="'+id+'"></td>';
+            if(id.startsWith("ID_"))
+            {
+                var tabulka = id.replace("ID_","") ;
+                row = row + '<td id="'+id+'" class="value">';
+
+                $.post("TabulkaComboBox.php", { Tabulka: tabulka, ID: id }, function (Jdata) {
+                    data = JSON.parse(Jdata);
+
+                    $(".new #"+data["id"]).html(data["message"]);
+                    console.log("combo:"+data["sql"]);
+                });
+
+                row = row + "</td>";
+
+            }
+            else if(id == "Cas")
+            {
+                row = row +  '<td class="value" id="'+id+'"><input class="itputTime" type="datetime-local"></td>';
+            }
+            else{
+            row = row + '<td class="value" id="'+id+'"><input type="text" class="form-control" id="'+id+'"></td>';
+            }
         }
         if(actions != null){
         row = row + '<td>' + actions + '</td>' + '</tr>';
@@ -52,12 +71,15 @@ $(document).ready(function () {
         $(this).parents("tr").find(".error").first().focus();
         if (!empty) {
             var tabulka = document.getElementById('Tabulka').textContent;
-            console.log(tabulka);
             var dict = new Object();
             dict["ID"]=$("table tbody tr:last-child #ID").html();
-            var input = $(this).parents("tr").find('input[type="text"]');
+            var input = $("table tbody tr:last-child .value");
             input.each(function () {
-                dict[$(this).attr('id')]='"' + $(this).val() + '"';
+
+                    console.log($(this).children().val()); 
+                    dict[$(this).attr('id')]='"' + $(this).children().val() + '"';              
+
+                
             });
             console.log(dict);
             var jsonDict = JSON.stringify(dict);
@@ -71,15 +93,22 @@ $(document).ready(function () {
                 else{
                     $("table tbody tr:last-child").addClass('importantRedBackground');
                 }
-                $("#displaymessage1").html(data['general_message']);
-                $("#displaymessage2").html(data['general_message']);
+                $("#displaymessage").html(data['general_message']);
+                setTimeout(function() {
+                    $("#displaymessage").html("");
+                    $("table tbody tr.importantRedBackground").removeClass("importantGreenBackground").hide();
+                    $("table tbody tr.importantGreenBackground").removeClass("importantGreenBackground");
+
+                }, 5000);
                 console.log(data['sql']);
             });
 
-
             input.each(function () {
-                $(this).parent("td").html($(this).val());
+                $(this).html($(this).children().val());
+                console.log($(this).children().val());
+
             });
+            $(".new").removeClass("new");
             $(this).parents("tr").find(".add, .edit").toggle();
             $(".add-new").removeAttr("disabled");
         }
