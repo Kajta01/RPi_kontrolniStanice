@@ -53,6 +53,7 @@ function VytvoritTabulkuStanoviste($nazev)
         while($row = mysqli_fetch_array($result)){
             echo $row['Field']."<br>";
         }
+        mysqli_close($conn);
     }
 
 } 

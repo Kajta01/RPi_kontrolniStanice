@@ -1,7 +1,7 @@
 
 
 <?php
-include 'config.php';
+include_once 'config.php';
 $conn = getdb();
 
 
@@ -25,7 +25,7 @@ echo $tabulka;
 
 echo $message;
 $url= "Tabulka.php?Nazev=". $_GET['Nazev'];
-header( "Location: $url" );
+//header( "Location: $url" );
 
 ?>
 

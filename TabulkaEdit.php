@@ -14,14 +14,25 @@
 </head>
 
 <body class="body">
-  <?php include 'headerEdit.php'; ?>
+  <?php include_once 'headerEdit.php'; ?>
+
   <div class="container">
     <div id="displaymessage" class= "message"></div>
+    
     <h1 id="Tabulka"> <?php echo $_GET['Nazev']; ?></h1>
+
+       <!-- CSV file upload form   style="display: none;" -->
+       <div class="col-md-12" id="importFrm" style="display: none;" >
+        <form action="importData.php" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="nameTable" name="nameTable" value="<?php echo $_GET['Nazev']; ?>">
+            <input type="file" name="file" />
+            <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">
+        </form>
+    </div>
     
 
     <?php
-    include 'config.php';
+    include_once 'config.php';
     $nazev = $_GET['Nazev'];
 
     $conn = getdb();
@@ -63,9 +74,23 @@
     <button type="button" class="btn btn-info add-new" ><i class="fa fa-plus"></i> Přidat řádek</button>
 
   </div>
+  
 
   
 
 </body>
 
 </html>
+
+
+<!-- Show/hide CSV upload form -->
+<script>
+function formToggle(ID){
+    var element = document.getElementById(ID);
+    if(element.style.display === "none"){
+        element.style.display = "block";
+    }else{
+        element.style.display = "none";
+    }
+}
+</script>

@@ -14,6 +14,7 @@ $(document).ready(function () {
         }
         var row = '<tr class="new"> <td id="ID">' + (odlID + 1) + '</td>';
         var i;
+        
         for (i = 1; i < document.getElementById('table').rows[0].cells.length - 1; i++) {
             var id = document.getElementById('table').rows[0].cells[i].id;
             if(id.startsWith("ID_"))
@@ -94,10 +95,12 @@ $(document).ready(function () {
                     $("table tbody tr:last-child").addClass('importantRedBackground');
                 }
                 $("#displaymessage").html(data['general_message']);
+                $("#displaymessage").addClass("view");
                 setTimeout(function() {
                     $("#displaymessage").html("");
                     $("table tbody tr.importantRedBackground").removeClass("importantGreenBackground").hide();
                     $("table tbody tr.importantGreenBackground").removeClass("importantGreenBackground");
+                    $("#displaymessage").removeClass("view");
 
                 }, 5000);
                 console.log(data['sql']);
