@@ -19,6 +19,15 @@ function SeznamVsechStanovist(){
     mysqli_close($conn);
     return $result;
 }
+function SeznamSkupinStanovist(){
+
+    $conn = getdb();
+    $sql = "SELECT * FROM Skupina";
+    $result = mysqli_query($conn, $sql);
+
+    mysqli_close($conn);
+    return $result;
+}
 
 function ExistujeTabulka($nazev){
     $conn = getdb();

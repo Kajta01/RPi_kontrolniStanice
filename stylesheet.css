@@ -1,14 +1,30 @@
 html{
     font-family: Helvetica; 
 }
-.body{
-    margin: 8px;
+.bodyIndex{
+    margin: 10px 5em;
 }
 
 .uvod{
-    max-width: 400px;
+    
     margin: 0 auto;
     text-align: center;
+
+}
+.tabulky, .ostatni{
+    display: flex;
+    flex-wrap: wrap; 
+}
+.prehled, .stanoviste, .dotazy, .funkce{
+    flex: 0 0 100%;
+}
+@media only screen and (min-width: 1000px) {
+    .prehled, .stanoviste, .dotazy, .funkce{
+        flex: 1 1 40%;
+    }
+    .prehled, .stanoviste, .dotazy, .funkce, .vysledky{
+        margin: 0 2.5em
+    }
 }
 .menu{
     border-bottom:2px solid black;
