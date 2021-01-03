@@ -42,7 +42,7 @@
                     $result = SeznamUkolovychStanovist();
 
                     while ($data = mysqli_fetch_array($result)) {
-                        echo '<li class="button"><a href="Tabulka.php?Nazev=' . $data['Nazev'] . '"> <i class="fa fa-bullseye" aria-hidden="true"></i> ' . $data['Nazev'] . " - " . $data['Popis'] . "</a></li>";
+                        echo '<li class="button"><a href="Tabulka.php?Nazev=' . $data['Nazev'] . '&Popis='.$data['Popis'].'"> <i class="fa fa-bullseye" aria-hidden="true"></i> ' . $data['Nazev'] . " - " . $data['Popis'] . "</a></li>";
                     }
                     ?>
                 </ul>
