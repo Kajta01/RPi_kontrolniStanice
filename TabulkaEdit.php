@@ -38,7 +38,7 @@
     $conn = getdb();
     $sql = "SHOW COLUMNS FROM $nazev";
     $result = mysqli_query($conn, $sql);
-    echo '<table class="table table-bordered" id="table"> <thead><tr>';
+    echo '<table class="table table-bordered table-edit" id="table"> <thead><tr>';
     $i = 0;
     while ($rowN = mysqli_fetch_array($result)) {
       echo '<th id="'.$rowN['Field'].'">' . $rowN['Field'] . "</th>";

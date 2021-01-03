@@ -1,10 +1,19 @@
 <?php
-include("config.php");
+include_once "config.php";
 
 function SeznamUkolovychStanovist(){
 
     $conn = getdb();
-    $sql = "SELECT Nazev FROM Stanoviste WHERE Ukolove is True";
+    $sql = "SELECT Nazev, Popis FROM Stanoviste WHERE Ukolove is True";
+    $result = mysqli_query($conn, $sql);
+
+    mysqli_close($conn);
+    return $result;
+}
+function SeznamVsechStanovist(){
+
+    $conn = getdb();
+    $sql = "SELECT ID, Nazev FROM Stanoviste";
     $result = mysqli_query($conn, $sql);
 
     mysqli_close($conn);

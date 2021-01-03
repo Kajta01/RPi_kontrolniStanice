@@ -6,49 +6,47 @@ $(document).ready(function () {
     // Append table with add row form on add new button click
     $(".add-new").click(function () {
         $(this).attr("disabled", "disabled");
-        
+
         var index = $("table tbody tr:last-child").index();
         var odlID = Number($("table tbody tr:last-child #ID").html());
-        if(isNaN(odlID)) {
+        if (isNaN(odlID)) {
             odlID = 0;
         }
         var row = '<tr class="new"> <td id="ID">' + (odlID + 1) + '</td>';
         var i;
-        
+
         for (i = 1; i < document.getElementById('table').rows[0].cells.length - 1; i++) {
             var id = document.getElementById('table').rows[0].cells[i].id;
-            if(id.startsWith("ID_"))
-            {
-                var tabulka = id.replace("ID_","") ;
-                row = row + '<td id="'+id+'" class="value">';
+            if (id.startsWith("ID_")) {
+                var tabulka = id.replace("ID_", "");
+                row = row + '<td id="' + id + '" class="value">';
 
                 $.post("TabulkaComboBox.php", { Tabulka: tabulka, ID: id }, function (Jdata) {
                     data = JSON.parse(Jdata);
 
-                    $(".new #"+data["id"]).html(data["message"]);
-                    console.log("combo:"+data["sql"]);
+                    $(".new #" + data["id"]).html(data["message"]);
+                    console.log("combo:" + data["sql"]);
                 });
 
                 row = row + "</td>";
 
             }
-            else if(id == "Cas")
-            {
-                row = row +  '<td class="value" id="'+id+'"><input class="itputTime" type="datetime-local"></td>';
+            else if (id == "Cas") {
+                row = row + '<td class="value" id="' + id + '"><input class="itputTime" type="datetime-local"></td>';
             }
-            else{
-            row = row + '<td class="value" id="'+id+'"><input type="text" class="form-control" id="'+id+'"></td>';
+            else {
+                row = row + '<td class="value" id="' + id + '"><input type="text" class="form-control" id="' + id + '"></td>';
             }
         }
-        if(actions != null){
-        row = row + '<td>' + actions + '</td>' + '</tr>';
+        if (actions != null) {
+            row = row + '<td>' + actions + '</td>' + '</tr>';
         }
         else {
-        row = row + '<td>' 
-        +'<a class="add" title="Add" data-toggle="tooltip"><i class="fa fa-plus"></i></a>'
-        +'<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>'
-        +'<a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>'
-        +'</td> </tr>';
+            row = row + '<td>'
+                + '<a class="add" title="Add" data-toggle="tooltip"><i class="fa fa-plus"></i></a>'
+                + '<a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>'
+                + '<a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>'
+                + '</td> </tr>';
         }
         $("table").append(row);
         $("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
@@ -73,30 +71,34 @@ $(document).ready(function () {
         if (!empty) {
             var tabulka = document.getElementById('Tabulka').textContent;
             var dict = new Object();
-            dict["ID"]=$("table tbody tr:last-child #ID").html();
+            dict["ID"] = $("table tbody tr:last-child #ID").html();
             var input = $("table tbody tr:last-child .value");
             input.each(function () {
 
-                    console.log($(this).children().val()); 
-                    dict[$(this).attr('id')]='"' + $(this).children().val() + '"';              
+                console.log($(this).children().val());
+                if ($(this).children().val() != "NULL") {
+                    dict[$(this).attr('id')] = '"' + $(this).children().val() + '"';
+                } else {
+                    dict[$(this).attr('id')] =  $(this).children().val();
+                }
 
-                
+
             });
             console.log(dict);
             var jsonDict = JSON.stringify(dict);
-            $.post("ajaxAdd.php", { Tabulka: tabulka ,data: jsonDict }, function (Jdata) {
+            $.post("ajaxAdd.php", { Tabulka: tabulka, data: jsonDict }, function (Jdata) {
                 data = JSON.parse(Jdata);
 
                 console.log(data['success']);
-                if(data['success']){
+                if (data['success']) {
                     $("table tbody tr:last-child").addClass('importantGreenBackground');
                 }
-                else{
+                else {
                     $("table tbody tr:last-child").addClass('importantRedBackground');
                 }
                 $("#displaymessage").html(data['general_message']);
                 $("#displaymessage").addClass("view");
-                setTimeout(function() {
+                setTimeout(function () {
                     $("#displaymessage").html("");
                     $("table tbody tr.importantRedBackground").removeClass("importantGreenBackground").hide();
                     $("table tbody tr.importantGreenBackground").removeClass("importantGreenBackground");

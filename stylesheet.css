@@ -58,6 +58,11 @@ ul{
 }
 .table{
     min-width: 600px; 
+    table-layout: auto !important;
+    width: 100%;
+}
+input[type=checkbox]#checkbox{
+    width: 100%;
 }
 
 tr #ID{
@@ -119,8 +124,9 @@ select{
 }
 
 input[type="file"] {
-    display: inline;
-  }
+    display: inline;;
+}
+
 
     .table-wrapper {
         width: 700px;

@@ -15,8 +15,11 @@ $decodedData = json_decode($data, true);
 $hodnoty = "";
 foreach($decodedData as $key => $value)
 {
+
   $hodnoty = $hodnoty  . $value .", ";//$td + $key+  $value  +
+  
 }
+
 $upraveneHodnoty = rtrim($hodnoty, ", ");
 //echo $upraveneHodnoty;
 
