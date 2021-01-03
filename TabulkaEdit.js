@@ -79,7 +79,7 @@ $(document).ready(function () {
                 if ($(this).children().val() != "NULL") {
                     dict[$(this).attr('id')] = '"' + $(this).children().val() + '"';
                 } else {
-                    dict[$(this).attr('id')] =  $(this).children().val();
+                    dict[$(this).attr('id')] = $(this).children().val();
                 }
 
 
@@ -131,26 +131,72 @@ $(document).ready(function () {
     });
     // update rec row on edit button click
     $(document).on("click", ".update", function () {
-        var id = $(this).attr("id");
-        var string = id;
-        var txtname = $("#txtname").val();
-        var txtdepartment = $("#txtdepartment").val();
-        var txtphone = $("#txtphone").val();
-        $.post("ajax_update.php", { string: string, txtname: txtname, txtdepartment: txtdepartment, txtphone: txtphone }, function (data) {
-            $("#displaymessage").html(data);
+        var tabulka = document.getElementById('Tabulka').textContent;
+
+        var dict = new Object();
+        dict["ID"] = $("table tbody tr:last-child #ID").html();
+        var input = $(this).parents("tr").children();
+        console.log($(this).parents("tr"));
+        $(this).parents("tr").addClass("updateRow");
+        input.each(function () {
+
+            if ($(this).attr('id') != null) {
+                if($(this).attr('id') == "ID"){
+                    dict[$(this).attr('id')] = '"' + $(this).html() + '"';
+                }
+                else if ($(this).children().val() != "") {
+                    dict[$(this).attr('id')] = '"' + $(this).children().val() + '"';
+                } 
+            }
         });
+        console.log(dict);
+        var jsonDict = JSON.stringify(dict);
+
+        $.post("ajaxUpdate.php", { Tabulka: tabulka, data: jsonDict }, function (Jdata) {
+            data = JSON.parse(Jdata);
+            lineUpdate = $("table .updateRow");
+            timeout=0;
+
+             if (data['success']) {
+                lineUpdate.addClass('importantGreenBackground');
+                timeout = 3000;
+             }
+             else {
+                lineUpdate.addClass('importantRedBackground');
+                timeout = 10000;
+             }
+             $("#displaymessage").html(data['general_message']);
+             $("#displaymessage").addClass("view");
+             setTimeout(function () {
+                 $("#displaymessage").html("");
+                 $("table tbody tr.importantRedBackground").removeClass("importantGreenBackground");
+                 $("table tbody tr.importantGreenBackground").removeClass("importantGreenBackground");
+                 $("#displaymessage").removeClass("view");
+ 
+             }, timeout);
+             console.log(data['sql']);
+        });
+        $(".add-new").removeAttr("disabled");
+        $(".updateRow").find(".update, .edit").toggle();
+
+        
+
+        $(".updateRow").find("td:not(:last-child)").each(function () {
+ 
+            $(this).html($(this).children().val());
+        });
+        $(".updateRow").removeClass("updateRow");
+
+        
+
     });
     // Edit row on edit button click
     $(document).on("click", ".edit", function () {
         $(this).parents("tr").find("td:not(:last-child)").each(function (i) {
-            if (i == '0') {
-                var idname = 'txtname';
-            } else if (i == '1') {
-                var idname = 'txtdepartment';
-            } else if (i == '2') {
-                var idname = 'txtphone';
-            } else { }
+            var idname = document.getElementById('table').rows[0].cells[i].id;
+            if(idname != "ID")
             $(this).html('<input type="text" name="updaterec" id="' + idname + '" class="form-control" value="' + $(this).text() + '">');
+
         });
         $(this).parents("tr").find(".add, .edit").toggle();
         $(".add-new").attr("disabled", "disabled");
