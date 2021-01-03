@@ -4,6 +4,11 @@ html{
 .bodyIndex{
     margin: 10px 5em;
 }
+@media only screen and (max-width: 500px) {
+    .bodyIndex{
+        margin: 10px 10px;
+    }
+}
 
 .uvod{
     

@@ -6,7 +6,7 @@ include_once 'config.php';
 $conn = getdb();
 $tabulka = $_POST['nameTable'];
 if (isset($_POST['importSubmit'])) {
-    echo "File: ".$_FILES['file']['name'] . "<br>";
+    echo "File: " . $_FILES['file']['name'] . "<br>";
     // Allowed mime types
     $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
     // Validate whether selected file is a CSV file
@@ -27,35 +27,28 @@ if (isset($_POST['importSubmit'])) {
                 $SQLnazvy = "";
 
                 foreach ($sloupce as $sloupec) {
-                    if($sloupec != "ID"){
-                        $SQLnazvy .= $sloupec.", "; 
+                    $SQLnazvy .= $sloupec . ", ";
                     if ($da[$sloupec] != "") {
                         $SQLdata .= '"' . $da[$sloupec] . '", ';
                     } else {
                         $SQLdata .=  "NULL, ";
                     }
                 }
-                }
                 $SQLdata = rtrim($SQLdata, ", ");
                 $SQLnazvy = rtrim($SQLnazvy, ", ");
-                $sql = "INSERT INTO " . $tabulka . " (".$SQLnazvy.") values (".$SQLdata.")";
+                $sql = "INSERT INTO " . $tabulka . " (" . $SQLnazvy . ") values (" . $SQLdata . ")";
 
                 echo "<br>" . $sql;
 
                 $result = mysqli_query($conn, $sql);
                 echo $result;
 
-                if($result == 1){
-                   echo "<p class='btn btn-success' align='center'>New record created successfully</p>";
-                   }
-                   else{
-                    echo   "<p class='btn btn-danger' align='center:'>Error: " . $sql . "<br>" . mysqli_error($conn).
-                    "<br> <strong> !!! Pres F5 !!!</strong></p>";
-                   }
-
-                
-
-
+                if ($result == 1) {
+                    echo "<p class='btn btn-success' align='center'>New record created successfully</p>";
+                } else {
+                    echo   "<p class='btn btn-danger' align='center:'>Error: " . $sql . "<br>" . mysqli_error($conn) .
+                        "<br> <strong> !!! Pres F5 !!!</strong></p>";
+                }
             }
             mysqli_close($conn);
 
@@ -107,14 +100,13 @@ function obsahujeSloupce($nadpisy)
     $result = mysqli_query($conn, $sql);
     while ($col = mysqli_fetch_array($result)) {
         $col = $col['Field'];
-        if ($col != "ID") {
-            echo "Sloupec '" . $col . "' ";
-            if (in_array($col, $nadpisy)) {
-                echo '<i style="color:green;">obsahuje <br></i>';
-            } else {
-                echo '<i style="color:red;">neobsahuje <br></i>';
-                array_push($chyby, '"' . $col . '"');
-            }
+
+        echo "Sloupec '" . $col . "' ";
+        if (in_array($col, $nadpisy)) {
+            echo '<i style="color:green;">obsahuje <br></i>';
+        } else {
+            echo '<i style="color:red;">neobsahuje <br></i>';
+            array_push($chyby, '"' . $col . '"');
         }
     }
     echo mysqli_error($conn);

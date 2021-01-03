@@ -13,10 +13,16 @@
 <body class="body">
     <?php include 'header.php';?>
     <div class="container">
-        <h1> <?php echo $_GET['Nazev']; ?></h1>
+    <?php if($_GET['Popis'] == ""){ 
+        echo "<h1>". $_GET['Nazev'] ."</h1>";
+    }else{
+        echo "<h1>". $_GET['Nazev']." - ".$_GET['Popis'] . "</h1>";
+    }?>
+
+       
 
         <?php 
-            include 'config.php';
+            include_once 'config.php';
             $nazev = $_GET['Nazev'];
 
             $conn = getdb();
