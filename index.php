@@ -16,7 +16,7 @@
     <div class="uvod">
         <div class="vysledky">
             <ul>
-                <li class="button"><a href="Tabulka.php?Nazev=0_FINAL"> <i class="fa fa-list-alt" aria-hidden="true"></i> Výsledky</a></li>
+                <li class="button"><a href="funkce/FinalniVysledky.php"> <i class="fa fa-list-alt" aria-hidden="true"></i> Výsledky</a></li>
                 <li class="button"><a href="funkce/PrubezneVysledky.php"> <i class="fa fa-list-alt" aria-hidden="true"></i> Průběžné výsledky</a></li>
 
             </ul>

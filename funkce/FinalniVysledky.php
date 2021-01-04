@@ -15,12 +15,12 @@
 
     <?php include '../headerNoEdit.php';?>
     <div class="container">
-    <h1>Průběžné výsledky</h1>
+    <h1>Finalní výsledky</h1>
 
     
 
         <?php 
-            $tabulka = "V_000_Vysledky";
+            $tabulka = "V_0_FINAL";
             include_once '../config.php';
 
             $conn = getdb();
@@ -36,15 +36,50 @@
             }
             echo "</tr></thead> <tbody>";
         
-            $sql = "SELECT * FROM $tabulka";
+            $sql = "SELECT * FROM $tabulka where Zivoty = 0";
+            $result = mysqli_query($conn,$sql);
+        
+            $i = 1;
+            while ($data = mysqli_fetch_array($result)) {
+                
+                if($i<4)
+                echo "<tr class = 'gold'>";
+                else
+                echo "<tr>";
+
+                $i++;
+
+                foreach($Nadpisy as &$nadpis)
+                {
+                    echo "<td >" . $data[$nadpis] . "</td>";
+                    
+                }
+                echo "</tr>";
+            }  
+        
+            echo "</tbody> </table>";
+            //mysqli_close($conn);
+
+        
+        
+        ?>
+        <?php 
+        
+            
+        echo '<table class="table table-bordered table-sortable"> <thead><tr>';
+            foreach($Nadpisy as $Nadpis)
+            {
+                echo'<th>'. $Nadpis."</th>";
+            }
+
+            echo "</tr></thead> <tbody>";
+        
+            $sql = "SELECT * FROM $tabulka where Zivoty != 0";
             $result = mysqli_query($conn,$sql);
         
         
             while ($data = mysqli_fetch_array($result)) {
-                if($data["Vyloucen"] == 1)
-                echo "<tr class='lightGrey'>";
-                else
-                echo "<tr>";
+
                 foreach($Nadpisy as &$nadpis)
                 {
                     echo "<td >" . $data[$nadpis] . "</td>";
