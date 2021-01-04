@@ -27,11 +27,10 @@ if (isset($_POST['importSubmit'])) {
                 $SQLnazvy = "";
 
                 foreach ($sloupce as $sloupec) {
-                    $SQLnazvy .= $sloupec . ", ";
+                                   
                     if ($da[$sloupec] != "") {
+                        $SQLnazvy .= $sloupec . ", ";
                         $SQLdata .= '"' . $da[$sloupec] . '", ';
-                    } else {
-                        $SQLdata .=  "NULL, ";
                     }
                 }
                 $SQLdata = rtrim($SQLdata, ", ");
@@ -106,7 +105,9 @@ function obsahujeSloupce($nadpisy)
             echo '<i style="color:green;">obsahuje <br></i>';
         } else {
             echo '<i style="color:red;">neobsahuje <br></i>';
+            if($col != "ID"){
             array_push($chyby, '"' . $col . '"');
+            }
         }
     }
     echo mysqli_error($conn);
@@ -116,14 +117,12 @@ function obsahujeSloupce($nadpisy)
     $result = mysqli_query($conn, $sql);
     while ($col = mysqli_fetch_array($result)) {
         $col = $col['Field'];
-        if ($col != "ID") {
             echo "Sloupec '" . $col . "' ";
             if (in_array($col, $nadpisy)) {
                 echo '<i style="color:green;">obsahuje <br></i>';
             } else {
                 echo '<i style="color:red;">neobsahuje <br></i>';
-            }
-        }
+            }     
     }
     echo "<br>";
     if (empty($chyby)) {

@@ -151,6 +151,9 @@ input[type="file"] {
 table .lightGrey{
     background-color: lightgrey;
 }
+table .gold{
+    background-color: gold;
+}
 
 
     .table-wrapper {
