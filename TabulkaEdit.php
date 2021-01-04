@@ -19,7 +19,11 @@
   <div class="container">
     <div id="displaymessage" class= "message"></div>
     
-    <h1 id="Tabulka"> <?php echo $_GET['Nazev']; ?></h1>
+    <?php if($_GET['Popis'] == ""){ 
+        echo '<h1 id="Tabulka" >'. $_GET['Nazev'] ."</h1>";
+    }else{
+        echo '<h1><e id="Tabulka">'. $_GET['Nazev']."</e> - ".$_GET['Popis'] . "</h1>";
+    }?>
 
        <!-- CSV file upload form   style="display: none;" -->
        <div class="col-md-12" id="importFrm" style="display: none;" >

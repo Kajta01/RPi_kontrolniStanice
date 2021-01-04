@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 foreach ($_POST as $key => $value) {
     if(strpos($key , 'S_') == 1 )
     {
-        $sql = 'INSERT INTO Zavod (ID_Ucastnik, ID_Stanoviste, Cas) values ('.ltrim($key,"_S_").', '.$_POST['stanoviste'].', "'.$_POST['cas'].'")';
+        $sql = 'INSERT INTO Zavod (ID_Cip, ID_Stanoviste, Cas) values ('.ltrim($key,"_S_").', '.$_POST['stanoviste'].', "'.$_POST['cas'].'")';
        
         echo $sql ."<br>";
         $result = mysqli_query($conn, $sql);
@@ -69,7 +69,7 @@ foreach ($_POST as $key => $value) {
 
 
                 while ($data = mysqli_fetch_array($result)) {
-                    echo "<td class='checkInput'><input type='checkbox'  id='checkbox' name=_S_'" . $data["ID"] . "' value='1'></td>";
+                    echo "<td class='checkInput'><input type='checkbox'  id='checkbox' name=_S_'" . $data["ID_Cip"] . "' value='1'></td>";
                     foreach ($Nadpisy as &$nadpis) {
                         echo "<td>" . $data[$nadpis] . "</td>";
                     }

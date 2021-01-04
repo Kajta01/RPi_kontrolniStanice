@@ -28,7 +28,7 @@ foreach($decodedData as $key => $value)
 $upraveneHodnoty = rtrim($hodnoty, ", ");
 //echo $upraveneHodnoty;
 
- $sql = "UPDATE" . $tabulka . " SET " .$upraveneHodnoty. " WHERE id = ".$decodedData['ID'];
+ $sql = "UPDATE " . $tabulka . " SET " .$upraveneHodnoty. " WHERE id = ".$decodedData['ID'];
 
 
 

@@ -78,7 +78,7 @@ ul{
     width: 15%;
 }
 .table{
-    min-width: 600px; 
+  
     table-layout: auto !important;
     width: 100%;
 }
