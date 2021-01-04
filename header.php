@@ -11,7 +11,8 @@
     <div class="menu" id="menu">
     <ul>
         <li><a href="index.php"><i class="fa fa-arrow-left" aria-hidden="true"></i> Přehled tabulek</a></li>
-        <li><a href="<?php echo "TabulkaEdit.php?Nazev=".$_GET['Nazev']?>"><i class="fa fa-pencil"></i> Editace</a></li>       
+        <li><a href="<?php echo "TabulkaEdit.php?Nazev=" . $_GET['Nazev'] . "&Popis=".$_GET['Popis']?>"><i class="fa fa-pencil"></i> Editace</a></li>       
+               
         
     </ul>
     </div>
