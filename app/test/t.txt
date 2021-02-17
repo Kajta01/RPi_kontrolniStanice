@@ -1,0 +1,10 @@
+mosquitto_sub -h eu.thethings.network -t '+/devices/+/events/activations' -u 'testcjtzv1' -P 'ttn-account-v2.35g16sHG0FjA6QsOhledAYplXKZtKrSYkDWAQd7E1tc' -v
+
+
+
+
+mosquitto_sub -h eu.thethings.network -t '+/devices/+/up' -u 'testcjtzv1' -P 'ttn-account-v2.35g16sHG0FjA6QsOhledAYplXKZtKrSYkDWAQd7E1tc' -v
+
+
+
+https://www.thingforward.io/techblog/2017-09-27-getting-started-with-lorawan-thethingsnetwork-and-platformio.html

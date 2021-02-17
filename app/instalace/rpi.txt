@@ -1,0 +1,31 @@
+sudo apt-get update
+
+sudo apt-get install r-base r-base-core r-base-dev
+
+https://gist.github.com/geotheory/4a1989c277401c6f12cf139e8614bb39
+
+
+sudo sh instal.sh
+
+
+
+R 
+install.packages("tidyverse")
+
+R 
+install.packages("tidyverse")
+rvest’, ‘xml2’
+
+install.packages("shiny")
+
+https://shiny.oxshef.io/deploy_embedding-shiny-apps.html
+
+
+
+install.packages("shiny.router")
+
+
+install.packages("leaflet")
+
+
+install.packages("RMySQL")

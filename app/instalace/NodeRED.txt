@@ -1,0 +1,6 @@
+https://nodered.org/docs/getting-started/local
+https://www.thethingsnetwork.org/docs/applications/nodered/quick-start.html
+https://randomnerdtutorials.com/getting-started-with-node-red-dashboard/
+https://flows.nodered.org/node/node-red-contrib-ui-led
+
+https://flows.nodered.org/node/node-red-node-mysql

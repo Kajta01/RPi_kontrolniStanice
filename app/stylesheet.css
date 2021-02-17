@@ -1,0 +1,286 @@
+html{
+    font-family: Helvetica; 
+}
+.bodyIndex{
+    margin: 10px 5em;
+}
+@media only screen and (max-width: 500px) {
+    .bodyIndex{
+        margin: 10px 10px;
+    }
+}
+
+.uvod{
+    
+    margin: 0 auto;
+    text-align: center;
+
+}
+.tabulky, .ostatni{
+    display: flex;
+    flex-wrap: wrap; 
+}
+.prehled, .stanoviste, .dotazy, .funkce{
+    flex: 0 0 100%;
+}
+@media only screen and (min-width: 1000px) {
+    .prehled, .stanoviste, .dotazy, .funkce{
+        flex: 1 1 40%;
+    }
+    .prehled, .stanoviste, .dotazy, .funkce, .vysledky{
+        margin: 0 2.5em
+    }
+}
+.menu{
+    border-bottom:2px solid black;
+   
+}
+.menu ul{
+    display: flex;
+    justify-content: space-around;
+    max-width: 750px;
+    margin: 10px auto;
+}
+.menu li{
+    display: inline-block;
+  
+}
+.menu a{
+    width: 100%; 
+}
+
+.button a{
+    text-decoration: none;
+}
+
+
+h1{color: #0F3376; 
+    padding: 2vh;
+    text-align: center;}
+
+.button{
+    display: block; 
+    border: 1px solid black; 
+    border-radius: 4px; 
+    color: black; 
+    padding: 16px; 
+    text-decoration: none; 
+    font-size: 30px; 
+    margin: 2px; 
+}
+ul{
+    padding: 0;
+}
+
+
+
+.akce{
+    width: 15%;
+}
+.table{
+  
+    table-layout: auto !important;
+    width: 100%;
+}
+input[type=checkbox]#checkbox{
+    width: 100%;
+}
+
+tr #ID{
+    background-color: lightgray;
+    width: 4em;
+}
+.message{
+    width: 100%;
+}
+.btn{
+    width: 100%;
+    height: 100%;
+}
+.add-new{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.importantRedBackground, .importantRedBackground #ID { background-color: red !important; }
+.importantGreenBackground, .importantGreenBackground #ID { background-color: lightgreen !important; }
+
+#ID .form-control{
+    width: 100%;
+    background-color: white;
+}
+select{
+    width: 100%;
+}
+
+#displaymessage.view{
+    position: fixed;
+    left: 0;
+    height: 5em;
+}
+
+#displaymessage{
+    position: fixed;
+    left: 0;
+    height: 0;
+}
+
+.itputTime{
+    width: 100%;
+}
+
+#importFrm{
+    border: 2px dashed green;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    align-items: center;
+}
+#importFrm form{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+#importFrm .btn{
+    max-width: 10em !important;
+    
+}
+
+input[type="file"] {
+    display: inline;;
+}
+
+table .lightGrey{
+    background-color: lightgrey;
+}
+table .gold{
+    background-color: gold;
+}
+table .lightGrey .notNull{
+    background-color: red;
+}
+table .border{
+    border-left: 5px solid black;
+}
+
+.obsah-VelkaTabulka{
+    margin: 0 5px;
+}
+.table thead{
+    background-color: #fff;
+}
+.final .Vyloucen{
+    display:none;
+}
+.sticky-header th{
+    position: sticky;
+    top: 10px;
+    background-color: #fff;
+}
+
+
+    .table-wrapper {
+        width: 700px;
+        margin: 30px auto;
+        background: #fff;
+         padding: 20px; 
+        box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    }
+    .table-title {
+        padding-bottom: 10px;
+        margin: 0 0 10px;
+    }
+    .table-title h2 {
+        margin: 6px 0 0;
+        font-size: 22px;
+    }
+    .table-title .add-new {
+        float: right;
+        height: 30px;
+        font-weight: bold;
+        font-size: 12px;
+        text-shadow: none;
+        min-width: 100px;
+        border-radius: 50px;
+        line-height: 13px;
+    }
+   .table-title .add-new i {
+        margin-right: 4px;
+    }
+    table.table {
+        table-layout: fixed;
+    }
+    table.table tr th, table.table tr td {
+        border-color: #e9e9e9;
+    }
+    table.table th i {
+        font-size: 13px;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+    table.table th:last-child {
+        width: 100px;
+    }
+    table.table td a {
+        cursor: pointer;
+        display: inline-block;
+        margin: 0 5px;
+        min-width: 24px;
+    }   
+    table.table td a.add {
+        color: #27C46B;
+    }
+    table.table td a.edit {
+        color: #FFC107;
+    }
+    table.table td a.delete {
+        color: #E34724;
+    }
+    table.table td i {
+        font-size: 19px;
+    }
+    table.table td a.add i {
+        font-size: 24px;
+        margin-right: -1px;
+        position: relative;
+        top: 3px;
+    }    
+    table.table .form-control {
+        height: 32px;
+        line-height: 32px;
+        box-shadow: none;
+        border-radius: 2px;
+    }
+    table.table .form-control.error {
+        border-color: #f50000;
+    }
+    table.table td .add {
+        display: none;
+    }
+
+
+
+    /*Sorting***/
+
+    .table-sortable th {
+        cursor: pointer;
+      }
+      
+      .table-sortable .th-sort-asc::after {
+        content: "\25b4";
+      }
+      
+      .table-sortable .th-sort-desc::after {
+        content: "\25be";
+      }
+      
+      .table-sortable .th-sort-asc::after,
+      .table-sortable .th-sort-desc::after {
+        margin-left: 5px;
+      }
+      
+      .table-sortable .th-sort-asc,
+      .table-sortable .th-sort-desc {
+        background: rgba(0, 0, 0, 0.1);
+      }
+
+/*****************/ 
+  
