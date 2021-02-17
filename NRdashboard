@@ -1,0 +1,14 @@
+<html>
+<head>
+
+    <script>
+  window.onload = function() { 
+    window.location.port = 1880;
+
+  };
+    </script>
+</head>
+<body>
+
+</body>
+</html>
