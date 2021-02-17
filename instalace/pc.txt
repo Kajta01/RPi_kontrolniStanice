@@ -1,0 +1,7 @@
+R - https://cran.rstudio.com/
+
+https://rstudio.com/
+
+install.packages("tidyverse")
+
+install.packages("shiny")
