@@ -154,6 +154,27 @@ table .lightGrey{
 table .gold{
     background-color: gold;
 }
+table .lightGrey .notNull{
+    background-color: red;
+}
+table .border{
+    border-left: 5px solid black;
+}
+
+.obsah-VelkaTabulka{
+    margin: 0 5px;
+}
+.table thead{
+    background-color: #fff;
+}
+.final .Vyloucen{
+    display:none;
+}
+.sticky-header th{
+    position: sticky;
+    top: 10px;
+    background-color: #fff;
+}
 
 
     .table-wrapper {
@@ -260,3 +281,6 @@ table .gold{
       .table-sortable .th-sort-desc {
         background: rgba(0, 0, 0, 0.1);
       }
+
+/*****************/ 
+  

@@ -12,7 +12,11 @@
 </head>
 
 <body class="bodyIndex">
-    <!--<?php include 'header.php'; ?>*******************-->
+    <?php include 'status.php'; ?>
+    <?php include 'header.php'; ?>
+    <?php include 'headerEdit.php'; ?>
+    <?php include 'headerMain.php'; ?>
+    <?php include 'headerNoEdit.php'; ?>
     <div class="uvod">
         <div class="vysledky">
             <ul>
@@ -62,6 +66,7 @@
                 <ul>
                     <?php
                     include_once "function.php";
+                    include_once "config.php";
                     $result = SeznamSkupinStanovist();
 
                     while ($data = mysqli_fetch_array($result)) {
@@ -72,6 +77,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
