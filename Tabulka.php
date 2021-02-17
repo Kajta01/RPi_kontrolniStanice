@@ -18,11 +18,14 @@
     }else{
         echo "<h1>". $_GET['Nazev']." - ".$_GET['Popis'] . "</h1>";
     }?>
-
+    <?php
+    include_once 'config.php';
+    echo '<iframe src="http://'. getIP() .':3333/#!/Stanoviste" width="100%" height="400px"></iframe>'; 
+        ?>
        
 
         <?php 
-            include_once 'config.php';
+            
             $nazev = $_GET['Nazev'];
 
             $conn = getdb();
