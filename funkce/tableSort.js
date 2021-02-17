@@ -41,3 +41,10 @@ document.querySelectorAll(".table-sortable th").forEach(headerCell => {
         sortTableByColumn(tableElement, headerIndex, !currentIsAscending);
     });
 });
+
+
+
+
+
+
+

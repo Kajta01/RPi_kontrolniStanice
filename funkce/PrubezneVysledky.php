@@ -14,7 +14,7 @@
 <body class="body">
 
     <?php include '../headerNoEdit.php';?>
-    <div class="container">
+    <div class="obsah-VelkaTabulka">
     <h1>Průběžné výsledky</h1>
 
     
@@ -26,7 +26,25 @@
             $conn = getdb();
             $sql = "SHOW COLUMNS FROM $tabulka";
             $result = mysqli_query($conn,$sql);
-            echo '<table class="table table-bordered table-sortable"> <thead><tr>';
+            echo '<table id="vysledky" class="table table-bordered table-sortable sticky-header">.
+            <colgroup>
+                <col span="2" >
+                <col span="1" class="border">
+                <col span="4" >
+                <col span="1" class="border">
+                <col span="6" >
+                <col span="1" class="border">
+                <col span="2" >
+                <col span="1" class="border">
+                <col span="2" >
+                <col span="1" class="border">
+                <col span="2" >
+                <col span="1" class="border">
+                <col span="2" >
+                <col span="1" class="border">
+
+            </colgroup>           
+            <thead><tr>';
             $i = 0;
             while($rowN = mysqli_fetch_array($result)){
                 echo'<th>'. $rowN['Field']."</th>";
@@ -47,7 +65,10 @@
                 echo "<tr>";
                 foreach($Nadpisy as &$nadpis)
                 {
-                    echo "<td >" . $data[$nadpis] . "</td>";
+                    $hodnota="";
+                    if (!in_array($nadpis, array("ID", "Prezdivka", "Vyloucen" )) )
+                    $hodnota = ($data[$nadpis] != "0" and $data[$nadpis] != null) ? "notNull" : "null";
+                    echo "<td class='".$nadpis. " " .$hodnota."'>" . $data[$nadpis] . "</td>";
                 }
                 echo "</tr>";
             }  
@@ -62,5 +83,6 @@
 
 
     <script src="tableSort.js"></script>
+    <script src="kontrolaDat.js"></script>
 </body>
 </html>

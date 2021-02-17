@@ -3,7 +3,7 @@ function getdb(){
     $servername = "localhost";
     $username = "grafana";
     $password = "grafana";
-    $db = "CJTZV";
+    $db = "CJTZV_19";
     try {
         $conn = mysqli_connect($servername, $username, $password, $db);
         //echo "Connected successfully"; 
@@ -16,6 +16,10 @@ function getdb(){
 
 function getDeletePassword(){
     return "grafana";
+}
+
+function getIP(){
+    return "192.168.0.109";
 }
 
 ?>
