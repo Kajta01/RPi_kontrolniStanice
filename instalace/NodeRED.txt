@@ -4,3 +4,7 @@ https://randomnerdtutorials.com/getting-started-with-node-red-dashboard/
 https://flows.nodered.org/node/node-red-contrib-ui-led
 
 https://flows.nodered.org/node/node-red-node-mysql
+
+https://flows.nodered.org/node/node-red-contrib-moment
+
+https://flows.nodered.org/node/node-red-contrib-advance-logger

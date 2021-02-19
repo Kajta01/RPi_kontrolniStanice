@@ -1,5 +1,0 @@
-https://tutorial101.blogspot.com/2019/10/data-table-with-add-edit-and-delete-row.html
-
-https://www.youtube.com/watch?v=NSjI3LuVUqU&ab_channel=CodexWorldsudp
-
-echo("<script>console.log('PHP: " . $csvFile . "');</script>");

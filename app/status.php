@@ -32,7 +32,7 @@
                 <li>Status</li>
 
                 <li>Node RED - RUN</li>
-                <li id="status"><a href="/NRdashboard">Status</a></li>
+                <li id="status"><a href="/NRdashboard">Status</a></li> 
 
             </ul>
         </div>
