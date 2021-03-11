@@ -1,11 +1,23 @@
 
-con <- DBI::dbConnect(RMySQL::MySQL(),
+
+
+
+library(tidyverse)
+conApp <- DBI::dbConnect(RMySQL::MySQL(),
   driver = "MySQL Driver",
-  dbname = "CJTZV_19",
+  dbname = "App",
   user    = "remote",
   password    = "grafana",
   host = "localhost",
   port = 3302)
 
+DBI::dbListTables(conApp)
+Akce <- DBI::dbReadTable(conApp,"Aktualni_Akce")[1,"Nazev"] %>% as.character()
 
-
+conAkce <- DBI::dbConnect(RMySQL::MySQL(),
+  driver = "MySQL Driver",
+  dbname = Akce,
+  user    = "remote",
+  password    = "grafana",
+  host = "localhost",
+  port = 3302)
