@@ -1,8 +1,6 @@
 library(shiny)
 library(shiny.router)
-
 library(tidyverse)
-
 library(RMariaDB)
 library(leaflet)
 library(dplyr)
@@ -23,14 +21,17 @@ menu <- (
 
 # Both sample pages.
 root_page <- div(menu, titlePanel("HOME"))
-first_page <- div(leafletOutput("graph_one"))
+first_page <- div(
+    leafletOutput("graph_one", height = "800px")
+    )
 
 
 # Callbacks on the server side for
 # the sample pages
 
 first_callback <- function(input, output, session) {
-    output$graph_one <- renderLeaflet({
+    output$graph_one <- renderLeaflet({   
+        source("Stanoviste.R")
         mapa
     })
 }
@@ -48,10 +49,24 @@ ui <- shinyUI(fluidPage(
     router$ui
 ))
 
+# Set timer
+timer <- reactiveTimer(5000)
+
+
 # Plug router into Shiny server.
 server <- shinyServer(function(input, output, session) {
     router$server(input, output, session)
+    observe({
+        timer()
+        #Stanoviste
+        proxy <- leafletProxy('graph_one') %>% clearShapes()
+        updateStanoviste('graph_one',session)
+    })
+        
+    
+    
 })
 
 # Run server in a standard way.
 shinyApp(ui, server)
+
