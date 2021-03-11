@@ -11,12 +11,11 @@
     <link rel="stylesheet" href="stylesheet.css">
 </head>
 
-<body class="bodyIndex">
-    <?php include 'status.php'; ?>
+<body>
+    <?php include 'headerStatus.php'; ?>
     <?php include 'header.php'; ?>
-    <?php include 'headerEdit.php'; ?>
-    <?php include 'headerMain.php'; ?>
-    <?php include 'headerNoEdit.php'; ?>
+    <?php include 'headerEdit.php'; ?>  
+    <div class="bodyIndex">
     <div class="uvod">
         <div class="vysledky">
             <ul>
@@ -77,7 +76,7 @@
             </div>
         </div>
     </div>
-
+    </div>
 </body>
 
 </html>

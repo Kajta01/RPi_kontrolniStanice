@@ -14,6 +14,7 @@
 </head>
 
 <body class="body">
+<?php include 'headerStatus.php'; ?>
   <?php include_once 'headerEdit.php'; ?>
 
   <div class="container">
@@ -27,7 +28,7 @@
 
        <!-- CSV file upload form   style="display: none;" -->
        <div class="col-md-12" id="importFrm" style="display: none;" >
-        <form action="importData.php" method="post" enctype="multipart/form-data">
+        <form action="ajaxImportData.php" method="post" enctype="multipart/form-data">
             <input type="hidden" id="nameTable" name="nameTable" value="<?php echo $_GET['Nazev']; ?>">
             <input type="file" name="file" />
             <input type="submit" class="btn btn-primary" name="importSubmit" value="IMPORT">

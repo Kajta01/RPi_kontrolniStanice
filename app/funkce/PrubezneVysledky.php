@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="../stylesheet.css">
 </head>
 <body class="body">
+<?php include 'headerStatus.php'; ?>
 
-    <?php include '../headerNoEdit.php';?>
     <div class="obsah-VelkaTabulka">
     <h1>Průběžné výsledky</h1>
 

@@ -14,8 +14,9 @@
 </head>
 
 <body class="body">
+<?php include '../headerStatus.php'; ?>
 
-    <?php include '../headerNoEdit.php'; ?>
+
     <div class="container">
         <h1>Finalní výsledky</h1>
 
