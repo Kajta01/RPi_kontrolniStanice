@@ -28,7 +28,7 @@
             $result = mysqli_query($conn,$sql);
             echo '<table id="vysledky" class="table table-bordered table-sortable sticky-header">.
             <colgroup>
-                <col span="2" >
+                <col span="3" >
                 <col span="1" class="border">
                 <col span="4" >
                 <col span="1" class="border">
