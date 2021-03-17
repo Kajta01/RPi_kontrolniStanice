@@ -35,11 +35,9 @@
                 <li><a href="/" onclick="javascript:event.target.port=3333" >R grafy</a></li>
                 <li><a href="/app/Tabulka.php?Nazev=TTN_Data"> TTN_Data</a></li>
 
+                
 
-                <li><a href="/" onclick="javascript:event.target.port=3344" >Online závod</a></li>
-
-                <li>Po závodě</li>
-
+                <li>Online závod</li>
 
                 <?php
                     include_once "function.php";

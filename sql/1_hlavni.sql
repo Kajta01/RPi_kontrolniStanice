@@ -1,6 +1,5 @@
 SELECT
 Ucastnik.ID as ID_Ucastnik,
-Ucastnik.ID_Cip as ID_Cip,
 Ucastnik.Prezdivka,
 Ucastnik.Vyloucen,
 IfNull(ZtraceneZivoty.Pocet,0)  as Zivoty,
