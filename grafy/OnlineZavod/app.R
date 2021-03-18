@@ -4,7 +4,7 @@ library(tidyverse)
 library(htmltools)
 library(shinyBS)
 
-source("databaze.R")
+source("../databaze.R")
 ###################################################################
 ###  Aktualizace dat z databáze
 ###################################################################

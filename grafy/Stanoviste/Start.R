@@ -1,6 +1,6 @@
 Sys.setlocale(category = 'LC_ALL', 'Czech')
 
-setwd("/var/www/html/grafy/app")
+setwd("/var/www/html/grafy/Stanoviste")
 
 # w = system("ifconfig", intern=TRUE)
 # x = w[grep("inet 19", w)]
@@ -8,7 +8,7 @@ setwd("/var/www/html/grafy/app")
 # z = sub(" .*","",y)
 # toString(z)
 
-shiny::runApp(host = "192.168.0.109",
+shiny::runApp("app.R", host = "192.168.0.109",
 	      port = 3333)
 
 
