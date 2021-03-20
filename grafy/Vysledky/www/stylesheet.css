@@ -1,0 +1,42 @@
+/***** SIMULACE ****/
+#shiny-tab-simulace {
+  position: relative;
+}
+#mapaSimulace, #mapaUcastnici {
+  height: calc(100vh - 80px) !important;
+}
+.panel-group, .panel {
+    margin-bottom: 0px !important;
+}
+ 
+.hr{
+  margin: 5px !important;
+}
+.awesome-marker svg { 
+  margin-top: 10px;
+  font-size: 16px;
+}
+.slider-animate-container {
+    position: absolute; top: 15%;
+    left: 48%;
+}
+.slider-animate-container a {
+    opacity: 0.7 !important;
+}
+.shiny-input-container{
+    position:relative;
+}
+.glyphicon{
+  font-size: 30px; 
+}
+.panelBottom{
+    background-color: rgba(255,255,255,0.7) !important;
+    padding: 0 10px 0 10px;
+}
+
+/***** MENU ****/
+
+.sidebar-menu svg{
+  font-size: 16px;
+}
+
