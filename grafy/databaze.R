@@ -1,8 +1,7 @@
+Sys.setlocale(category = 'LC_ALL', 'Czech')
 
+library(RMySQL)
 
-
-
-library(tidyverse)
 conApp <- DBI::dbConnect(RMySQL::MySQL(),
   driver = "MySQL Driver",
   dbname = "App",

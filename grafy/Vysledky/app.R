@@ -8,9 +8,8 @@ library(leaflet)
 library(plotly)
 library(Cairo)
 library(lubridate)
-
-
 options(bitmapType='cairo')
+
 source("../databaze.R")
 source("Data.R", encoding = "UTF-8")
 source("Simulace.R", encoding = "UTF-8")
@@ -125,9 +124,8 @@ server <- function(input, output, session) {
     proxyPohybUcastniku(input$ucastnikS)
   }, ignoreNULL  = F)
   
+  output$ucastStanoviste <- renderPlotly({ getUcastniciGraf(input$ucastnikS) })
 
-  
-output$ucastStanoviste <- renderPlotly({ getUcastniciGraf(input$ucastnikS) })
   
 }
 getUcastniciMapa

@@ -45,7 +45,7 @@ PocetNaCP_BezStartCil <<- left_join(PocetNaCP, Stanoviste_DB, by = "ID_Stanovist
 SeznamUcastniku <<- Ucastnici_DB %>% 
   summarise(
     value = ID_Cip,
-    label = paste(ID, " ",Jmeno)
+    label = paste(ID, " ",Prezdivka)
   )
 
 
@@ -57,6 +57,8 @@ StanovisteSkupiny <<- left_join(Stanoviste_DB, Skupiny_DB, "ID_Skupina")%>%
 StanovisteSkupinyZavod <<- left_join(Zavod_DB, StanovisteSkupiny, "ID_Stanoviste") %>%
   select(ID_Stanoviste, NazevStanoviste, Cas, ID_Cip, GPSE, GPSN )%>%
   arrange(ID_Stanoviste) 
+
+StanovisteSkupinyZavodUcast <<- left_join(StanovisteSkupinyZavod, Ucastnici_DB, by = "ID_Cip")
 
 CasStartu <<- head((Zavod_DB %>% arrange(Cas))$Cas,1)
 CasPosledniVCili <<- tail((Zavod_DB %>% arrange(Cas))$Cas,1)

@@ -83,13 +83,19 @@ proxyPohybUcastniku <- function(ucastnici){
 getUcastniciGraf <- function(ucastnici){
   seznamUcastniku = vybranniUcastnici(ucastnici)
   pocetUcastniku = length(seznamUcastniku)
-  ZavodDataF <- StanovisteSkupinyZavod %>% filter(ID_Cip %in% seznamUcastniku)
-  
+  ZavodDataF <- StanovisteSkupinyZavodUcast %>% filter(ID_Cip %in% seznamUcastniku)
     grafUcastnici <-ggplot(data = ZavodDataF,
-                           aes(x = factor(NazevStanoviste, 
-                                          levels =unique(NazevStanoviste)),
-                               y = Cas ,group = ID_Cip, color=factor(ID_Cip) ))+
-      geom_line()+
+          aes(x = factor(NazevStanoviste, 
+           levels =unique(NazevStanoviste)),
+           text = paste(
+             "Čas: ", format(Cas, format="%H:%M:%S"), "<br>",
+             "ID: ",ID," ",Prezdivka,"<br>",
+             "Stanoviště: ",ID_Stanoviste," ",NazevStanoviste,sep= ""),
+                                          
+          y = Cas,group = ID, color=factor(ID) ))+
+      geom_line(
+       
+      )+
       geom_point(size=2.0, shape=20) +
       ylim(CasStartu, CasPosledniVCili) + 
       scale_x_discrete(limit = SeznamStanovist)+
@@ -99,11 +105,12 @@ getUcastniciGraf <- function(ucastnici){
       xlab("Stanoviště")+
       ylab("Čas")+
       theme_bw()+
-      theme(axis.text.x = element_text(angle = 90))
+      theme(axis.text.x = element_text(angle = 45))
     
-    vyslednyGraf<- ggplotly(grafUcastnici) %>%
+    vyslednyGraf<- ggplotly(grafUcastnici, tooltip = "text") %>%
       config(displaylogo = FALSE, 
              displayModeBar = FALSE)
+    vyslednyGraf
     
 }
 

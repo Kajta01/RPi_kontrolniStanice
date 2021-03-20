@@ -123,6 +123,7 @@ ui <- bootstrapPage(
     .panelBottom{
     padding: 0 10px 0 10px; }
     .panel-group { margin-bottom: 0px;}
+    .panel-title a{display: block;}
     "
   ),
   tags$head(HTML("<script src='https://use.fontawesome.com/releases/v5.15.2/js/all.js'
