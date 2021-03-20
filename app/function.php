@@ -4,7 +4,7 @@ include_once "config.php";
 function SeznamUkolovychStanovist(){
 
     $conn = getdb();
-    $sql = "SELECT Nazev, Popis FROM Stanoviste WHERE Ukolove is True";
+    $sql = "SELECT Nazev, Popis FROM Stanoviste WHERE Ukolove = 1";
     $result = mysqli_query($conn, $sql);
 
     mysqli_close($conn);
