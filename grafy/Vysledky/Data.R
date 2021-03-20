@@ -3,15 +3,19 @@ Sys.setlocale(category = 'LC_ALL', 'Czech')
 updateData <- function(){
 
   
-Stanoviste_DB <<- dbReadTable(conAkce, "Stanoviste", database = databaze) %>%
+Stanoviste_DB <<- dbReadTable(conAkce, "Stanoviste") %>%
                      rename(ID_Stanoviste = "ID")
-Zavod_DB <<- DBI::dbReadTable(conAkce, "Zavod") 
-Ucastnici_DB <<- dbReadTable(conAkce, "Ucastnik", database = databaze) %>%
+Zavod_DB <<- DBI::dbReadTable(conAkce, "Zavod")
+
+Zavod_DB$Cas <<- ymd_hms(Zavod_DB$Cas)
+
+Ucastnici_DB <<- dbReadTable(conAkce, "Ucastnik") %>%
   filter(Vyloucen == 0)
 
-Zavod_s_GPS <<- left_join(Zavod_DB, Stanoviste_DB, "ID_Stanoviste") %>%
-  select(ID_Cip, Cas, GPSE, GPSN, ID_Stanoviste)
 
+
+Skupiny_DB <<- dbReadTable(conAkce, "Skupina")%>%
+  rename(ID_Skupina = "ID") %>% rename(NazevSkupiny = "Nazev")
 
 ################################################################
 
@@ -43,4 +47,21 @@ SeznamUcastniku <<- Ucastnici_DB %>%
     value = ID_Cip,
     label = paste(ID, " ",Jmeno)
   )
+
+
+StanovisteSkupiny <<- left_join(Stanoviste_DB, Skupiny_DB, "ID_Skupina")%>%
+  mutate(
+    NazevStanoviste = ifelse(NazevSkupiny == "NULL", Nazev,NazevSkupiny)
+  )
+
+StanovisteSkupinyZavod <<- left_join(Zavod_DB, StanovisteSkupiny, "ID_Stanoviste") %>%
+  select(ID_Stanoviste, NazevStanoviste, Cas, ID_Cip, GPSE, GPSN )%>%
+  arrange(ID_Stanoviste) 
+
+CasStartu <<- head((Zavod_DB %>% arrange(Cas))$Cas,1)
+CasPosledniVCili <<- tail((Zavod_DB %>% arrange(Cas))$Cas,1)
+
+SeznamStanovist <<-unique(StanovisteSkupinyZavod$NazevStanoviste)
+
+
 }

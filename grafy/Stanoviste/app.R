@@ -1,8 +1,6 @@
 library(shiny)
 library(tidyverse)
-library(RMariaDB)
 library(leaflet)
-library(dplyr)
 
 source("../databaze.R")
 

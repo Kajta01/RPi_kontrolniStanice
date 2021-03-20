@@ -2,8 +2,13 @@
 #shiny-tab-simulace {
   position: relative;
 }
-#mapaSimulace, #mapaUcastnici {
+#mapaSimulace {
   height: calc(100vh - 80px) !important;
+}
+
+ #mapaUcastnici, #ucastStanoviste
+ {
+  height: calc(100vh - 160px) !important;
 }
 .panel-group, .panel {
     margin-bottom: 0px !important;

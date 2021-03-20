@@ -5,7 +5,12 @@ library(shinydashboard)
 library(tidyverse)
 library(shinyBS)
 library(leaflet)
+library(plotly)
+library(Cairo)
+library(lubridate)
 
+
+options(bitmapType='cairo')
 source("../databaze.R")
 source("Data.R", encoding = "UTF-8")
 source("Simulace.R", encoding = "UTF-8")
@@ -17,7 +22,7 @@ updateData()
 
 ui <- dashboardPage(
 
-  dashboardHeader(title = paste("Výsledky ",Akce,sep=""),
+  dashboardHeader(title = paste("Výsledky ",Akce ,sep=""),
                   tags$li( class="dropdown",actionButton("button", "Aktualizovat data"),
                            style = "padding: 8px; color: #fff;") ),
   dashboardSidebar(
@@ -113,18 +118,17 @@ server <- function(input, output, session) {
   ##################################################################
   
   updateSelectizeInput(session, 'ucastnikS', choices = SeznamUcastniku, server = TRUE)
-  output$mapaUcastnici <- renderLeaflet({
-    getUcastniciMapa()})
+  output$mapaUcastnici <- renderLeaflet({ getUcastniciMapa()})
   
 
   observeEvent(input$ucastnikS, {
-    print(input$ucastnikS)
     proxyPohybUcastniku(input$ucastnikS)
   }, ignoreNULL  = F)
-
-  
   
 
+  
+output$ucastStanoviste <- renderPlotly({ getUcastniciGraf(input$ucastnikS) })
+  
 }
 getUcastniciMapa
 

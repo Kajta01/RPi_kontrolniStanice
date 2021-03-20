@@ -1,18 +1,21 @@
 Sys.setlocale(category = 'LC_ALL', 'Czech')
 
 uiUcastnici<- function(){
-  sidebarLayout(
-      sidebarPanel(width = 2,
+  fluidPage(
+    fluidRow(
             selectizeInput("ucastnikS",enc2utf8( "Účastník:"),
-                            choices = NULL, multiple = TRUE)
+                            choices = NULL, multiple = TRUE, width= "100%" )
              ),
-             mainPanel( width = 10,
+
                         fluidRow(
-                          column(width = 5,
+                          column(width = 6,
                                  leafletOutput("mapaUcastnici")
-                                 ))
+                                 ), 
+                          column(width = 6,
+                          plotlyOutput("ucastStanoviste"))
+                          )
                     
-             )
+             
     )
 }
 getUcastniciMapa <- function(){
@@ -56,7 +59,7 @@ proxyPohybUcastniku <- function(ucastnici){
   leafletProxy("mapaUcastnici") %>% clearGroup(group = "ucastnik")
   seznamUcastniku = vybranniUcastnici(ucastnici)
   pocetUcastniku = length(seznamUcastniku)
-  ZavodDataF <- Zavod_s_GPS %>% filter(ID_Cip %in% seznamUcastniku)
+  ZavodDataF <- StanovisteSkupinyZavod %>% filter(ID_Cip %in% seznamUcastniku)
   
   colorGradient <- gradientFunction(pocetUcastniku)
   
@@ -76,5 +79,35 @@ proxyPohybUcastniku <- function(ucastnici){
   mapaTrasy
 }
 
+
+getUcastniciGraf <- function(ucastnici){
+  seznamUcastniku = vybranniUcastnici(ucastnici)
+  pocetUcastniku = length(seznamUcastniku)
+  ZavodDataF <- StanovisteSkupinyZavod %>% filter(ID_Cip %in% seznamUcastniku)
+  
+    grafUcastnici <-ggplot(data = ZavodDataF,
+                           aes(x = factor(NazevStanoviste, 
+                                          levels =unique(NazevStanoviste)),
+                               y = Cas ,group = ID_Cip, color=factor(ID_Cip) ))+
+      geom_line()+
+      geom_point(size=2.0, shape=20) +
+      ylim(CasStartu, CasPosledniVCili) + 
+      scale_x_discrete(limit = SeznamStanovist)+
+      
+      labs(colour = "ID čipu")+
+      
+      xlab("Stanoviště")+
+      ylab("Čas")+
+      theme_bw()+
+      theme(axis.text.x = element_text(angle = 90))
+    
+    vyslednyGraf<- ggplotly(grafUcastnici) %>%
+      config(displaylogo = FALSE, 
+             displayModeBar = FALSE)
+    
+}
+
+
+# seznamUcastniku<<- Ucastnici_DB$ID_Cip
 
 gradientFunction <- colorRampPalette(c("red", "blue", "green"))
