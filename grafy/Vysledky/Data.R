@@ -10,15 +10,19 @@ Zavod_DB <<- DBI::dbReadTable(conAkce, "Zavod")
 Zavod_DB$Cas <<- ymd_hms(Zavod_DB$Cas)
 
 Ucastnici_DB <<- dbReadTable(conAkce, "Ucastnik") %>%
+  rename("ID_Ucastnik" = ID) %>%
   filter(Vyloucen == 0)
 
+Zivoty_DB <<- DBI::dbReadTable(conAkce, "ZtraceneZivoty")
 
 
 Skupiny_DB <<- dbReadTable(conAkce, "Skupina")%>%
   rename(ID_Skupina = "ID") %>% rename(NazevSkupiny = "Nazev")
 
 ################################################################
+UcastniciZivoty <<- left_join(Ucastnici_DB,Zivoty_DB, by="ID_Ucastnik" )
 
+################################################################
 Zavod_Time <<- Zavod_DB %>%
   arrange(Cas) %>%
   summarise(
@@ -45,7 +49,7 @@ PocetNaCP_BezStartCil <<- left_join(PocetNaCP, Stanoviste_DB, by = "ID_Stanovist
 SeznamUcastniku <<- Ucastnici_DB %>% 
   summarise(
     value = ID_Cip,
-    label = paste(ID, " ",Prezdivka)
+    label = paste(ID_Ucastnik, " ",Prezdivka)
   )
 
 
@@ -58,7 +62,10 @@ StanovisteSkupinyZavod <<- left_join(Zavod_DB, StanovisteSkupiny, "ID_Stanoviste
   select(ID_Stanoviste, NazevStanoviste, Cas, ID_Cip, GPSE, GPSN )%>%
   arrange(ID_Stanoviste) 
 
-StanovisteSkupinyZavodUcast <<- left_join(StanovisteSkupinyZavod, Ucastnici_DB, by = "ID_Cip")
+StanovisteSkupinyZavodUcast <<- left_join(StanovisteSkupinyZavod, Ucastnici_DB, by = "ID_Cip") %>%
+  mutate(
+    Id_Prezdivka = paste(ID_Ucastnik," ",Prezdivka,sep="")
+  )
 
 CasStartu <<- head((Zavod_DB %>% arrange(Cas))$Cas,1)
 CasPosledniVCili <<- tail((Zavod_DB %>% arrange(Cas))$Cas,1)

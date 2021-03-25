@@ -8,6 +8,8 @@ library(leaflet)
 library(plotly)
 library(Cairo)
 library(lubridate)
+library(geosphere)
+
 options(bitmapType='cairo')
 
 source("../databaze.R")
@@ -26,10 +28,10 @@ ui <- dashboardPage(
                            style = "padding: 8px; color: #fff;") ),
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Účastníci", tabName = "ucastnici", icon = icon("users")),
+      
       menuItem("Přehled", tabName = "prehled", icon = icon("stack-overflow")),
       menuItem("Tabulka", tabName = "tabulka", icon = icon("stack-overflow")),
-      
+      menuItem("Účastníci", tabName = "ucastnici", icon = icon("users")),
       menuItem("Stanoviště", tabName = "stanoviste", icon = icon("map-marker")),
       menuItem("Simulace", tabName = "simulace", icon = icon("play-circle"))
      
@@ -47,7 +49,13 @@ ui <- dashboardPage(
         tabName = "prehled",
         valueBoxOutput("celkovyCas"),
         valueBoxOutput("nejStanoviste"),
-        valueBoxOutput("pocetUcast")
+        valueBoxOutput("pocetUcast"),
+        valueBoxOutput("casDobehu"),
+        valueBoxOutput("pocetZivotu"),
+        valueBoxOutput("pocetZivychMrtvych"),
+        valueBoxOutput("delkaTrasy")
+        
+        
         
       ),
       tabItem(
@@ -112,6 +120,19 @@ server <- function(input, output, session) {
   output$pocetUcast <- renderValueBox({
     valueBox( pocetUcastniku(), "Počet účastníků", icon = icon("users"),color = "green" )})
   
+  output$casDobehu <- renderValueBox({
+    valueBox( casDobehu(), "Čas v cíli", icon = icon("users"),color = "green" )})
+  
+  output$pocetZivotu <- renderValueBox({
+    valueBox( pocetZivotu(), "Počet odebraných životů", icon = icon("users"),color = "green" )})
+  
+  output$pocetZivychMrtvych <- renderValueBox({
+    valueBox( pocetZivychMrtvych(), "Počet živých / mrtvých", icon = icon("users"),color = "green" )})
+  
+  output$delkaTrasy <- renderValueBox({
+    valueBox( delkaTrasy(), "Délka trasy", icon = icon("route"),color = "blue" )})
+  
+
   ###################################################################
   ##### Ucastnnici
   ##################################################################

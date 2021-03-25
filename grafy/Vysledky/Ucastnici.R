@@ -59,7 +59,7 @@ proxyPohybUcastniku <- function(ucastnici){
   leafletProxy("mapaUcastnici") %>% clearGroup(group = "ucastnik")
   seznamUcastniku = vybranniUcastnici(ucastnici)
   pocetUcastniku = length(seznamUcastniku)
-  ZavodDataF <- StanovisteSkupinyZavod %>% filter(ID_Cip %in% seznamUcastniku)
+  ZavodDataF <- StanovisteSkupinyZavodUcast %>% filter(ID_Cip %in% seznamUcastniku)
   
   colorGradient <- gradientFunction(pocetUcastniku)
   
@@ -75,7 +75,7 @@ proxyPohybUcastniku <- function(ucastnici){
       weight = 5,
       group = "ucastnik",
       color = as.character(colorGradient[zavodnik]),
-      popup = zavodnik)}
+      label = ~Id_Prezdivka)}
   mapaTrasy
 }
 
@@ -84,15 +84,16 @@ getUcastniciGraf <- function(ucastnici){
   seznamUcastniku = vybranniUcastnici(ucastnici)
   pocetUcastniku = length(seznamUcastniku)
   ZavodDataF <- StanovisteSkupinyZavodUcast %>% filter(ID_Cip %in% seznamUcastniku)
+  
     grafUcastnici <-ggplot(data = ZavodDataF,
           aes(x = factor(NazevStanoviste, 
            levels =unique(NazevStanoviste)),
            text = paste(
              "Čas: ", format(Cas, format="%H:%M:%S"), "<br>",
-             "ID: ",ID," ",Prezdivka,"<br>",
+             "ID: ",ID_Ucastnik," ",Prezdivka,"<br>",
              "Stanoviště: ",ID_Stanoviste," ",NazevStanoviste,sep= ""),
                                           
-          y = Cas,group = ID, color=factor(ID) ))+
+          y = Cas,group = ID_Ucastnik, color=factor(Id_Prezdivka) ))+
       geom_line(
        
       )+
@@ -100,7 +101,7 @@ getUcastniciGraf <- function(ucastnici){
       ylim(CasStartu, CasPosledniVCili) + 
       scale_x_discrete(limit = SeznamStanovist)+
       
-      labs(colour = "ID čipu")+
+      labs(colour = "Účastník")+
       
       xlab("Stanoviště")+
       ylab("Čas")+
