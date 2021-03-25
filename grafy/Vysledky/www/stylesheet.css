@@ -48,4 +48,17 @@
 .sidebar-menu svg{
   font-size: 16px;
 }
+.nav .selectize-control, .nav .form-group{
+  margin: 0 !important;
+}
+.nav {
+   padding: 8px !important;
+  
+}
+.nav .control-label{
+  display:none;
+}
+.nav .selectize-input{
+  display:block !important;
+}
 

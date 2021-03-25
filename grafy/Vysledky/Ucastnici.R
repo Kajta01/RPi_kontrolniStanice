@@ -62,7 +62,7 @@ proxyPohybUcastniku <- function(ucastnici){
   ZavodDataF <- StanovisteSkupinyZavodUcast %>% filter(ID_Cip %in% seznamUcastniku)
   
   colorGradient <- gradientFunction(pocetUcastniku)
-  
+
   for (zavodnik in c(1:pocetUcastniku)) {
     mapaTrasy <- leafletProxy("mapaUcastnici", data = ZavodDataF) %>%
      addPolylines(

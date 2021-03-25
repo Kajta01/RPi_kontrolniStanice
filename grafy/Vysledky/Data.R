@@ -1,7 +1,15 @@
 Sys.setlocale(category = 'LC_ALL', 'Czech')
 
-updateData <- function(){
+updateData <- function(akceDatabaze){
 
+if(is.null(akceDatabaze)){
+  conAkce <<- getDefaultActionCon
+}
+else{
+Akce <<- akceDatabaze
+conAkce <<- getActionCon(Akce)
+#browser()
+}  
   
 Stanoviste_DB <<- dbReadTable(conAkce, "Stanoviste") %>%
                      rename(ID_Stanoviste = "ID")
@@ -33,16 +41,29 @@ Zavod_Time <<- Zavod_DB %>%
 ID_Start <<- (Stanoviste_DB %>% filter(Nazev == "START"))$ID_Stanoviste
 ID_Cil <<- (Stanoviste_DB %>% filter(Nazev == "CIL"))$ID_Stanoviste
 
+StanovisteSkupiny <<- left_join(Stanoviste_DB, Skupiny_DB, "ID_Skupina")%>%
+  mutate(
+    NazevStanoviste = ifelse(NazevSkupiny == "NULL", Nazev,NazevSkupiny)
+  )
+
+
+StanovisteSkupinyZavod <<- left_join(Zavod_DB, StanovisteSkupiny, "ID_Stanoviste") %>% 
+  select(ID_Stanoviste, NazevStanoviste, Cas, ID_Cip, GPSE, GPSN, Poradi) 
+
+
 PocetNaCP <<- Zavod_DB %>%
   distinct(ID_Stanoviste, ID_Cip)%>%
   group_by(ID_Stanoviste) %>%
   summarise(
-    Pocet = n()
+    Pocet = n(),
   )
-PocetNaCP_BezStartCil <<- left_join(PocetNaCP, Stanoviste_DB, by = "ID_Stanoviste") %>% 
+PocetNaCPNazev <<- left_join(PocetNaCP, StanovisteSkupiny, by = "ID_Stanoviste")
+PocetNaCP_BezStartCil <<- PocetNaCPNazev %>% 
   filter(ID_Stanoviste != ID_Start) %>% 
   filter(ID_Stanoviste != ID_Cil) %>% 
   arrange(desc(Pocet))
+
+
 
 #####################################################################################
 
@@ -53,24 +74,18 @@ SeznamUcastniku <<- Ucastnici_DB %>%
   )
 
 
-StanovisteSkupiny <<- left_join(Stanoviste_DB, Skupiny_DB, "ID_Skupina")%>%
-  mutate(
-    NazevStanoviste = ifelse(NazevSkupiny == "NULL", Nazev,NazevSkupiny)
-  )
 
-StanovisteSkupinyZavod <<- left_join(Zavod_DB, StanovisteSkupiny, "ID_Stanoviste") %>%
-  select(ID_Stanoviste, NazevStanoviste, Cas, ID_Cip, GPSE, GPSN )%>%
-  arrange(ID_Stanoviste) 
+
+
 
 StanovisteSkupinyZavodUcast <<- left_join(StanovisteSkupinyZavod, Ucastnici_DB, by = "ID_Cip") %>%
   mutate(
     Id_Prezdivka = paste(ID_Ucastnik," ",Prezdivka,sep="")
-  )
-
+  ) 
 CasStartu <<- head((Zavod_DB %>% arrange(Cas))$Cas,1)
 CasPosledniVCili <<- tail((Zavod_DB %>% arrange(Cas))$Cas,1)
 
-SeznamStanovist <<-unique(StanovisteSkupinyZavod$NazevStanoviste)
+SeznamStanovist <<-unique((StanovisteSkupinyZavod %>% arrange(Poradi) )$NazevStanoviste)
 
 
 }

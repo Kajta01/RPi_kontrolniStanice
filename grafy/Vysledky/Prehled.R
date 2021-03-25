@@ -55,7 +55,8 @@ delkaTrasy <- function(){
   kratka <-distm(c(start$GPSE, start$GPSN), c(cil$GPSE, cil$GPSN))
   
   SSU <- StanovisteSkupiny %>% distinct(NazevStanoviste, .keep_all = TRUE )%>%
-    select(NazevStanoviste, GPSN, GPSE)
+    arrange(Poradi) %>%
+    select(NazevStanoviste, GPSN, GPSE, Nazev)
   dlouha =0 
   for(i in c(1:(count(SSU)$n - 1))){
     dlouha <- distm(c(SSU$GPSE[i], SSU$GPSN[i]),c(SSU$GPSE[i+1],SSU$GPSN[i+1])) + dlouha
@@ -65,6 +66,9 @@ delkaTrasy <- function(){
   dlouha <- format(round(dlouha),big.mark=" ")
   paste(kratka,"m","/",dlouha,"m")
   
+}
+getAktualAkce <- function(){
+  Akce
 }
 
 

@@ -21,7 +21,10 @@ mapa <- leaflet(data = Stanoviste) %>%
 # Make output for our router in main UI of Shiny app.
 ui <- shinyUI(
   bootstrapPage(
-    tags$head(HTML("<script src='https://use.fontawesome.com/releases/v5.15.2/js/all.js'
+    tags$head(tags$link(rel="shortcut icon", 
+                                href="https://www.noaa.gov/sites/all/themes/custom/noaa/favicon.ico", 
+                                type="image/vnd.microsoft.icon"),
+                                HTML("<script src='https://use.fontawesome.com/releases/v5.15.2/js/all.js'
                     data-auto-a11y='true'></script>")),
     tags$style(
         type = "text/css",

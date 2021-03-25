@@ -175,17 +175,7 @@ uiSimTimeSliderPanel <- function() {
     left = "10%",
     width = "80%",
     class = "panel  panelBottom",
-    sliderInput(
-      "timeSliderSim",
-      "Time:",
-      min = as.POSIXct(Zavod_Time$First),
-      max = as.POSIXct(Zavod_Time$Last),
-      value = as.POSIXct(Zavod_Time$First),
-      timeFormat = "%H:%M",
-      step = 60 * 10,
-      width = "100%",
-      animate = animationOptions(interval = 1000)
-    )
+    uiOutput("myList")
   )
 }
 
@@ -238,15 +228,16 @@ getColorCas <- function(data)  {
     }
   })
 }
-SimulaceProxy <- function(input) {
-  cas = input$timeSliderSim
-  velikost =  input$velikost
+SimulaceProxy <- function(input, inVelikost) {
+  
+  if(!is.null(input)){
+  cas = input
+  velikost =  inVelikost
   Skupina <<- ifelse(Skupina == "n", "s","n")
   AktualiCas <<- cas
   
   Zavod_DB_F <<- Zavod_DB %>%
     filter(Cas <= cas)
-  #browser()
   Zavod_Stanoviste <<-  Zavod_DB_F %>%
     group_by(ID_Stanoviste) %>%
     arrange(Cas)%>%
@@ -271,7 +262,27 @@ SimulaceProxy <- function(input) {
   } else {
     leafletProxy('mapaSimulace') %>% clearGroup(group = "s")
   }
+  }
 }
+
+renderSliderSimulace<- function() {
+
+
+sliderInput(
+  "timeSliderSim",
+  "Time:",
+  min = as.POSIXct(Zavod_Time$First),
+  max = as.POSIXct(Zavod_Time$Last),
+  value = as.POSIXct(Zavod_Time$First),
+  timeFormat = "%H:%M",
+  step = 60 * 10,
+  width = "100%",
+  animate = animationOptions(interval = 1000)
+)
+}
+
+
+
 Skupina <<- "n"
 
 
