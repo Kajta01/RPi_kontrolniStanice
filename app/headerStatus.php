@@ -28,25 +28,20 @@
 
     <body>
         <div class="menu">
+        <?php include_once "function.php"; echo '<h1 >'. AktualniAkce() .'</h1>';?>
             <ul>
                 <li><a href="/app/index.php"><i class="fa fa-arrow-left" aria-hidden="true"></i> Přehled tabulek</a></li>
 
                 <li id="status"><a href="/NRdashboard">Node RED</a></li>
-                <li><a href="/" onclick="javascript:event.target.port=3333" >R grafy</a></li>
                 <li><a href="/app/Tabulka.php?Nazev=TTN_Data"> TTN_Data</a></li>
+                <li><a href="/" onclick="javascript:event.target.port=3333" >Stanoviste</a></li>
+               
+
+                <li><a href="/" onclick="javascript:event.target.port=3344" >Online zavod</a></li>
 
                 
-
-                <li>Online závod</li>
-
-                <?php
-                    include_once "function.php";
-                    $result = AktualniAkce();
-
-                    while ($data = mysqli_fetch_array($result)) {
-                        echo '<li >'.$data['Nazev'] .'</li>';
-                    }
-                    ?>
+                
+               
 
 
             </ul>

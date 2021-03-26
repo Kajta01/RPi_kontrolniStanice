@@ -75,16 +75,18 @@ function VytvoritTabulkuStanoviste($nazev)
     }
 
 } 
-function AktualniAkce()
+
+function getVsechnyAkce()
 {
     $conn = getdbApp();
-    $sql = "SELECT Nazev FROM Aktualni_Akce Limit 1";
+   
+    $sql = "SELECT Nazev FROM Akce Order by Vytvoreno DESC";
+    
     $result = mysqli_query($conn, $sql);
-
     mysqli_close($conn);
-    return $result;
-}
 
+    return  $result;
+}
 //StanovisteBodyTabulka("aaaaa");
 
 ?>
