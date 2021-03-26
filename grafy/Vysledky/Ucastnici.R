@@ -32,6 +32,7 @@ getUcastniciMapa <- function(){
     addAwesomeMarkers( ~ GPSE , ~ GPSN, icon = icons)
   
   idMax <- (Stanoviste_DB %>% arrange(desc(ID_Skupina)) %>% drop_na(ID_Skupina))$ID_Skupina[1]
+  if(idMax > 0){
   for (val in c(1:idMax)) {
     mapaTrasy <- addPolylines(
       map = mapaTrasy,
@@ -42,7 +43,7 @@ getUcastniciMapa <- function(){
       weight = 2,
       color = "#000000"
     )
-  }
+  }}
 
   
   mapaTrasy

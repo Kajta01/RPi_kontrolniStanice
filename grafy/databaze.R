@@ -11,12 +11,12 @@ conApp <- DBI::dbConnect(RMySQL::MySQL(),
   port = 3302)
 
 DBI::dbListTables(conApp)
-Akce <- DBI::dbReadTable(conApp,"Aktualni_Akce")[1,"Nazev"] %>% as.character()
+AkceDB <- DBI::dbReadTable(conApp,"Aktualni_Akce")[1,"Nazev"] %>% as.character()
 
 conAkce <-
  DBI::dbConnect(RMySQL::MySQL(),
   driver = "MySQL Driver",
-  dbname = Akce,
+  dbname = AkceDB,
   user    = "remote",
   password    = "grafana",
   host = "localhost",

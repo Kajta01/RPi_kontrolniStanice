@@ -4,6 +4,8 @@ updateData <- function(akceDatabaze){
 
 if(is.null(akceDatabaze)){
   conAkce <<- getDefaultActionCon
+  Akce <<- AkceDB
+
 }
 else{
 Akce <<- akceDatabaze

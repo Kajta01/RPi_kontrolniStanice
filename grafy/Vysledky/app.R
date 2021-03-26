@@ -98,7 +98,7 @@ server <- function(input, output, session) {
 
     if(input$akceS != Akce){
     updateData(input$akceS)
-    #  browser()
+     # browser()
       session$reload()
     }
     

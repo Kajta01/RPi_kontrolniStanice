@@ -198,6 +198,8 @@ getMapaSimulace <- function() {
                       icon = icons)
   idMax <- (Stanoviste_DB %>% arrange(desc(ID_Skupina)) %>% drop_na(ID_Skupina))$ID_Skupina[1]
   
+  if(idMax > 0){
+  
   for (val in c(1:idMax)) {
     mapa <- addPolylines(
       mapa,
@@ -208,7 +210,8 @@ getMapaSimulace <- function() {
       weight = 2,
       color = "#000000"
     )
-  }
+   # browser()
+  }}
   mapa
 }
 
@@ -277,6 +280,7 @@ sliderInput(
   timeFormat = "%H:%M",
   step = 60 * 10,
   width = "100%",
+  timezone = "+0000",
   animate = animationOptions(interval = 1000)
 )
 }
