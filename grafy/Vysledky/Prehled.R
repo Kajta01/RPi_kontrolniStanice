@@ -9,7 +9,7 @@ dhms <- function(t){
   )
 }
 celkovyCasHodnota <- function() {
-
+  
   
   DataStart <- Zavod_DB %>%
     filter(ID_Stanoviste == ID_Start) %>%
@@ -20,12 +20,12 @@ celkovyCasHodnota <- function() {
   DataVse <- left_join(DataStart, DataCil, by = "ID_Cip") %>%
     mutate(Rozdil = as.integer(round(difftime(Cil, Start, units = "sec"), 2)))
   vysledek =  sum((DataVse %>% drop_na(Rozdil))$Rozdil)
- # browser()
+  # browser()
   dhms (vysledek)
 }
 
 nejlepsiStanoviste <- function(){
-
+  
   NejCP <- head(PocetNaCP_BezStartCil,1)
   paste(NejCP$Nazev, " - ",NejCP$Popis)
 }
@@ -35,21 +35,21 @@ pocetUcastniku <- function(){
 }
 casDobehu <- function(){
   data <- (StanovisteSkupinyZavodUcast %>% 
-    filter(ID_Stanoviste == ID_Cil)%>%
-    arrange(Cas))$Cas
+             filter(ID_Stanoviste == ID_Cil)%>%
+             arrange(Cas))$Cas
   paste( format(head(data,1), format="%H:%M"),"/", format(tail(data,1), format="%H:%M"))
 }
 pocetZivotu <- function(){
   
   sum(Zivoty_DB$Pocet)
- 
+  
 }
 pocetZivychMrtvych <- function(){
   zivi <-UcastniciZivoty %>%
     filter(Pocet == 0 | is.na(Pocet))
   mrtvi <-UcastniciZivoty %>%
     filter(!(Pocet == 0 | is.na(Pocet)))
-
+  
   paste( count(zivi),"/", count(mrtvi))
 }
 delkaTrasy <- function(){
@@ -64,11 +64,11 @@ delkaTrasy <- function(){
   dlouha =0 
   for(i in c(1:(count(SSU)$n - 1))){
     dlouha <- distm(c(SSU$GPSE[i], SSU$GPSN[i]),c(SSU$GPSE[i+1],SSU$GPSN[i+1])) + dlouha
-   # print(paste(SSU$NazevStanoviste[i], SSU$NazevStanoviste[i+1]))
+    # print(paste(SSU$NazevStanoviste[i], SSU$NazevStanoviste[i+1]))
   }
   kratka <- format(round(kratka),big.mark=" ")
   dlouha <- format(round(dlouha),big.mark=" ")
-
+  
   paste(kratka,"m","/",dlouha,"m")
   
 }

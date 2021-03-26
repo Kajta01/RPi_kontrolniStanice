@@ -23,16 +23,16 @@ source("Stanoviste.R", encoding = "UTF-8")
 updateData(NULL)
 
 ui <- dashboardPage(
- 
-
+  
+  
   dashboardHeader(title = "Výsledky závodu",
                   tags$li( class="dropdown",
                            tags$li( selectizeInput("akceS","k",
-                  choices = getAllAkce, multiple = F )
-                                                     
-                  ),  tags$li( actionButton("zmenaAkce", "Změnit akci")            )
+                                                   choices = getAllAkce, multiple = F ),
+                                    
+                           ),  tags$li( actionButton("zmenaAkce", "Změnit akci")            )
                            
-                           ) ),
+                  ) ),
   dashboardSidebar(
     sidebarMenu(
       
@@ -41,7 +41,7 @@ ui <- dashboardPage(
       menuItem("Účastníci", tabName = "ucastnici", icon = icon("users")),
       menuItem("Stanoviště", tabName = "stanoviste", icon = icon("map-marker")),
       menuItem("Simulace", tabName = "simulace", icon = icon("play-circle"))
-     
+      
     )
   ),
   dashboardBody(
@@ -50,11 +50,11 @@ ui <- dashboardPage(
       HTML('<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">'),
       HTML("<script src='https://use.fontawesome.com/releases/v5.15.2/js/all.js'data-auto-a11y='true'></script>")
     ),
-
+    
     tabItems(
       tabItem(
         tabName = "prehled",
-        valueBoxOutput("aktualniDatabaze", width = 12),
+        uiOutput("aktualniDatabaze"),
         valueBoxOutput("celkovyCas"),
         valueBoxOutput("nejStanoviste"),
         valueBoxOutput("pocetUcast"),
@@ -92,13 +92,13 @@ ui <- dashboardPage(
 
 
 server <- function(input, output, session) {
-
+  
   
   observeEvent(input$zmenaAkce,{
-
+    
     if(input$akceS != Akce){
-    updateData(input$akceS)
-     # browser()
+      updateData(input$akceS)
+      # browser()
       session$reload()
     }
     
@@ -107,8 +107,8 @@ server <- function(input, output, session) {
   output$myList <- renderUI({
     
     renderSliderSimulace()
-  
-})
+    
+  })
   
   ###################################################################
   ##### #Simulace
@@ -116,8 +116,8 @@ server <- function(input, output, session) {
   
   output$mapaSimulace <- renderLeaflet({ getMapaSimulace()})
   observeEvent(input$timeSliderSim,{
-     
-  SimulaceProxy(input$timeSliderSim, input$velikost) },ignoreInit = T, ignoreNULL = T)
+    
+    SimulaceProxy(input$timeSliderSim, input$velikost) },ignoreInit = T, ignoreNULL = T)
   
   observeEvent(input$krok,{
     if(!is.na(input$krok )){
@@ -135,9 +135,11 @@ server <- function(input, output, session) {
   ##### Přehled
   ##################################################################
   
-  output$aktualniDatabaze <- renderValueBox({
-    valueBox( getAktualAkce(), "Aktuální akce", icon = icon("info"),color = "green" )})
+  output$aktualniDatabaze <-renderUI({
+    h1(getAktualAkce(), width = 12)
+  })
   
+
   output$celkovyCas <- renderValueBox({
     valueBox( celkovyCasHodnota(), "Celkový naběhaný čas", icon = icon("list"),color = "purple" )})
   
@@ -159,7 +161,7 @@ server <- function(input, output, session) {
   output$delkaTrasy <- renderValueBox({
     valueBox( delkaTrasy(), "Délka trasy", icon = icon("route"),color = "blue" )})
   
-
+  
   ###################################################################
   ##### Ucastnnici
   ##################################################################
@@ -167,10 +169,10 @@ server <- function(input, output, session) {
   updateSelectizeInput(session, 'ucastnikS', choices = SeznamUcastniku, server = TRUE)
   output$mapaUcastnici <- renderLeaflet({ getUcastniciMapa()})
   
-
+  
   observeEvent(input$ucastnikS, {
     proxyPohybUcastniku(input$ucastnikS)
-  
+    
   }, ignoreNULL  = F)
   
   output$ucastStanoviste <- renderPlotly({ getUcastniciGraf(input$ucastnikS) })

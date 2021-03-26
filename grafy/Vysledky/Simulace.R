@@ -199,19 +199,19 @@ getMapaSimulace <- function() {
   idMax <- (Stanoviste_DB %>% arrange(desc(ID_Skupina)) %>% drop_na(ID_Skupina))$ID_Skupina[1]
   
   if(idMax > 0){
-  
-  for (val in c(1:idMax)) {
-    mapa <- addPolylines(
-      mapa,
-      data = (Stanoviste_DB %>% arrange(Nazev)) %>%
-        filter(ID_Skupina == val),
-      lng = ~ GPSE,
-      lat = ~ GPSN,
-      weight = 2,
-      color = "#000000"
-    )
-   # browser()
-  }}
+    
+    for (val in c(1:idMax)) {
+      mapa <- addPolylines(
+        mapa,
+        data = (Stanoviste_DB %>% arrange(Nazev)) %>%
+          filter(ID_Skupina == val),
+        lng = ~ GPSE,
+        lat = ~ GPSN,
+        weight = 2,
+        color = "#000000"
+      )
+      # browser()
+    }}
   mapa
 }
 
@@ -234,55 +234,55 @@ getColorCas <- function(data)  {
 SimulaceProxy <- function(input, inVelikost) {
   
   if(!is.null(input)){
-  cas = input
-  velikost =  inVelikost
-  Skupina <<- ifelse(Skupina == "n", "s","n")
-  AktualiCas <<- cas
-  
-  Zavod_DB_F <<- Zavod_DB %>%
-    filter(Cas <= cas)
-  Zavod_Stanoviste <<-  Zavod_DB_F %>%
-    group_by(ID_Stanoviste) %>%
-    arrange(Cas)%>%
-    summarise(
-      Posledni = last(Cas),
-      Pocet = n(),
-      Rozdil = round(difftime(AktualiCas,last(Cas),units = "mins"),2)
-    ) 
-  
-  Zavod_Stanoviste <<- left_join(Stanoviste_DB, Zavod_Stanoviste, by = "ID_Stanoviste")%>% 
-    select( GPSE, GPSN, Pocet, Rozdil)
-  
-  mapa <-  leafletProxy("mapaSimulace", data = Zavod_Stanoviste) %>%
-    addCircleMarkers(~ GPSE ,
-                     ~ GPSN,
-                     color = getColorCas(Zavod_Stanoviste),
-                     group = Skupina,
-                     radius = ~ Pocet * velikost)
-  
-  if (Skupina == "s") {
-    leafletProxy('mapaSimulace') %>% clearGroup(group = "n")
-  } else {
-    leafletProxy('mapaSimulace') %>% clearGroup(group = "s")
-  }
+    cas = input
+    velikost =  inVelikost
+    Skupina <<- ifelse(Skupina == "n", "s","n")
+    AktualiCas <<- cas
+    
+    Zavod_DB_F <<- Zavod_DB %>%
+      filter(Cas <= cas)
+    Zavod_Stanoviste <<-  Zavod_DB_F %>%
+      group_by(ID_Stanoviste) %>%
+      arrange(Cas)%>%
+      summarise(
+        Posledni = last(Cas),
+        Pocet = n(),
+        Rozdil = round(difftime(AktualiCas,last(Cas),units = "mins"),2)
+      ) 
+    
+    Zavod_Stanoviste <<- left_join(Stanoviste_DB, Zavod_Stanoviste, by = "ID_Stanoviste")%>% 
+      select( GPSE, GPSN, Pocet, Rozdil)
+    
+    mapa <-  leafletProxy("mapaSimulace", data = Zavod_Stanoviste) %>%
+      addCircleMarkers(~ GPSE ,
+                       ~ GPSN,
+                       color = getColorCas(Zavod_Stanoviste),
+                       group = Skupina,
+                       radius = ~ Pocet * velikost)
+    
+    if (Skupina == "s") {
+      leafletProxy('mapaSimulace') %>% clearGroup(group = "n")
+    } else {
+      leafletProxy('mapaSimulace') %>% clearGroup(group = "s")
+    }
   }
 }
 
 renderSliderSimulace<- function() {
-
-
-sliderInput(
-  "timeSliderSim",
-  "Time:",
-  min = as.POSIXct(Zavod_Time$First),
-  max = as.POSIXct(Zavod_Time$Last),
-  value = as.POSIXct(Zavod_Time$First),
-  timeFormat = "%H:%M",
-  step = 60 * 10,
-  width = "100%",
-  timezone = "+0000",
-  animate = animationOptions(interval = 1000)
-)
+  
+  
+  sliderInput(
+    "timeSliderSim",
+    "Time:",
+    min = as.POSIXct(Zavod_Time$First),
+    max = as.POSIXct(Zavod_Time$Last),
+    value = as.POSIXct(Zavod_Time$First),
+    timeFormat = "%H:%M",
+    step = 60 * 10,
+    width = "100%",
+    timezone = "+0000",
+    animate = animationOptions(interval = 1000)
+  )
 }
 
 
