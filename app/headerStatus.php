@@ -39,6 +39,9 @@
 
                 <li><a href="/" onclick="javascript:event.target.port=3344" >Online zavod</a></li>
 
+                <li><a href="../logout.php" >Odhlásit se</a></li>
+
+
                 
                 
                

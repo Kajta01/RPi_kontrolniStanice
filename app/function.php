@@ -87,6 +87,18 @@ function getVsechnyAkce()
 
     return  $result;
 }
+function setDB($username)
+{
+    $conn = getdbApp();
+    $sql = "UPDATE Aktualni_Akce SET Nazev='".$username."' WHERE ID = 0";
+    $result = mysqli_query($conn, $sql);
+    mysqli_close($conn);
+
+
+    return  $result;
+
+}
+
 //StanovisteBodyTabulka("aaaaa");
 
 ?>
