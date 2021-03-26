@@ -31,23 +31,7 @@ html{
         margin: 0 2.5em
     }
 }
-.menu{
-    border-bottom:2px solid black;
-   
-}
-.menu ul{
-    display: flex;
-    justify-content: space-around;
-    max-width: 750px;
-    margin: 10px auto;
-}
-.menu li{
-    display: inline-block;
-  
-}
-.menu a{
-    width: 100%; 
-}
+
 
 .button a{
     text-decoration: none;
@@ -283,4 +267,41 @@ table .border{
       }
 
 /*****************/ 
+
+
+
+/*****************************************************************/
+/* Header Status */
+.menu h1{
+    margin: 0;
+}
+.menu{
+    border-bottom:2px solid black;
+   
+}
+.menu ul{
+    display: flex;
+    justify-content: space-around;
+    max-width: 750px;
+    margin: 10px auto;
+}
+.menu li{
+    display: inline-block;
   
+}
+.menu a{
+    width: 100%; 
+}
+
+/**********************************************/
+/* Login */
+.wrapper-login{
+     width: 400px; 
+     padding: 20px; 
+     margin: 10% auto;
+     border: solid 1px lightgray;
+}
+
+.btn-secondary a, .btn-secondary a:hover {
+    color: white;
+}
