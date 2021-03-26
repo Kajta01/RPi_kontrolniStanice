@@ -1,3 +1,6 @@
+
+
+CREATE VIEW `V_RUN_01` AS 
 SELECT Ucastnik.ID as ID_Ucastnik, 
 Zavod.ID_Cip, 
 Zavod.Cas,
@@ -11,8 +14,43 @@ INNER JOIN Zavod on Ucastnik.ID_Cip = Zavod.ID_Cip
 INNER JOIN Stanoviste on Zavod.ID_Stanoviste = Stanoviste.ID
 
 where Stanoviste.ID_Skupina=1
-GROUP by Ucastnik.ID
-__________________________________________________-
+GROUP by Ucastnik.ID;
+
+
+
+CREATE VIEW `V_RUN_02` AS 
+SELECT Ucastnik.ID as ID_Ucastnik, 
+Zavod.ID_Cip, 
+Zavod.Cas,
+COUNT(Zavod.ID) as Pocet,
+0_Pravidla.ProbihaciStanoviste as Body,
+Zavod.ID_Stanoviste
+ 
+
+from  0_Pravidla, Ucastnik
+INNER JOIN Zavod on Ucastnik.ID_Cip = Zavod.ID_Cip
+INNER JOIN Stanoviste on Zavod.ID_Stanoviste = Stanoviste.ID
+
+where Stanoviste.ID_Skupina=2
+GROUP by Ucastnik.ID;
+
+
+
+CREATE VIEW `V_RUN_03` AS 
+SELECT Ucastnik.ID as ID_Ucastnik, 
+Zavod.ID_Cip, 
+Zavod.Cas,
+COUNT(Zavod.ID) as Pocet,
+0_Pravidla.ProbihaciStanoviste as Body,
+Zavod.ID_Stanoviste
+ 
+
+from  0_Pravidla, Ucastnik
+INNER JOIN Zavod on Ucastnik.ID_Cip = Zavod.ID_Cip
+INNER JOIN Stanoviste on Zavod.ID_Stanoviste = Stanoviste.ID
+
+where Stanoviste.ID_Skupina=3
+GROUP by Ucastnik.ID;
 
 CREATE VIEW `V_RUN_04` AS 
 SELECT Ucastnik.ID as ID_Ucastnik, 
