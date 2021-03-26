@@ -1,1 +1,0 @@
-R -e "source('grafy/OnlineZavod/Start.R')"
