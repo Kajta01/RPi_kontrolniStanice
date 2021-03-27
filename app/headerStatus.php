@@ -5,51 +5,51 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
 
-    <style>
-        .menu ul {
-            display: flex;
-            justify-content: space-around;
-            max-width: 750px;
-            margin: 10px auto;
-        }
-
-        li {
-            display: inline-block;
-        }
-
-        body {
-            border-bottom: 1px solid black;
-        }
-    </style>
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <h1><?php include_once "function.php";
+            echo AktualniAkce(); ?></h1>
+        <div class="navbar-collapse">
 
-    <body>
-        <div class="menu">
-        <?php include_once "function.php"; echo '<h1 >'. AktualniAkce() .'</h1>';?>
-            <ul>
-                <li><a href="/app/index.php"><i class="fa fa-arrow-left" aria-hidden="true"></i> Přehled tabulek</a></li>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
-                <li id="status"><a href="/NRdashboard">Node RED</a></li>
-                <li><a href="/app/Tabulka.php?Nazev=TTN_Data"> TTN_Data</a></li>
-                <li><a href="/" onclick="javascript:event.target.port=3333" >Stanoviste</a></li>
-               
+                <li class="nav-item active">
+                    <a class="nav-link" href="/app/index.php"><i class="fa fa-arrow-left" aria-hidden="true"></i> Přehled tabulek<span class="sr-only">(current)</span></a>
+                </li>
 
-                <li><a href="/" onclick="javascript:event.target.port=3344" >Online zavod</a></li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/NRdashboard">Node RED <span class="sr-only">(current)</span></a>
+                </li>
 
-                <li><a href="../logout.php" >Odhlásit se</a></li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/app/vsechnyData.php" >Všechny data<span class="sr-only">(current)</span></a>
+                </li>
 
+                <li class="nav-item active">
+                    <a class="nav-link" href="/app/Tabulka.php?Nazev=TTN_Data">TTN_Data <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/" onclick="javascript:event.target.port=3333">Stanoviste <span class="sr-only">(current)</span></a>
+                </li>
 
+                <li class="nav-item active">
+                    <a class="nav-link" href="/" onclick="javascript:event.target.port=3344">Online závod <span class="sr-only">(current)</span></a>
+                </li>
                 
-                
-               
+                <li class="nav-item active">
+                    <a class="nav-link" href="/" onclick="javascript:event.target.port=3355"> Po závodu <span class="sr-only">(current)</span></a>
+                </li>
 
-
+                <li class="nav-item active">
+                    <a class="nav-link" href="../logout.php">Odhlásit se <span class="sr-only">(current)</span></a>
+                </li>
             </ul>
         </div>
-    </body>
+    </nav>
 
 </body>
 
