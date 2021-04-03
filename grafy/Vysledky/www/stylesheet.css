@@ -1,3 +1,11 @@
+*{
+  font-family: sans-serif !important;
+}
+.main-header .sidebar-toggle {
+  font-family: fontAwesome, 'Font Awesome 5 Free' !important;
+  font-weight: 900;
+}
+
 /***** SIMULACE ****/
 #shiny-tab-simulace {
   position: relative;
@@ -50,6 +58,7 @@
 }
 .nav .selectize-control, .nav .form-group{
   margin: 0 !important;
+  padding-right: 5px;
 }
 .nav {
    padding: 8px !important;
@@ -63,6 +72,22 @@
 }
 
 #aktualniDatabaze h1{
-  text-align: center
+  text-align: center;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  margin-top: 0;
+  font-weight: bold;
+}
+
+/***** Stanoviště *****/
+#pocetNavstivenych{
+  height:40vh !important;
+}
+#pocetStanoviste{
+  height:48vh !important;
+  padding-top:5px !important;
+}
+#shiny-tab-stanoviste .col-sm-7{
+  padding:0 !important;
 }
 

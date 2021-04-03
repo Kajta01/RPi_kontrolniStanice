@@ -8,7 +8,8 @@ conApp <- DBI::dbConnect(RMySQL::MySQL(),
   user    = "remote",
   password    = "grafana",
   host = "localhost",
-  port = 3302)
+  port = 3302,
+  encoding = "UTF-8")
 
 DBI::dbListTables(conApp)
 AkceDB <- DBI::dbReadTable(conApp,"Aktualni_Akce")[1,"Nazev"] %>% as.character()
@@ -20,7 +21,8 @@ conAkce <-
   user    = "remote",
   password    = "grafana",
   host = "localhost",
-  port = 3302)
+  port = 3302,
+  encoding = "UTF-8")
 
 getAllAkce <- (DBI::dbReadTable(conApp,"Akce")%>%arrange(desc(Vytvoreno)))$Nazev
 
@@ -36,6 +38,7 @@ getActionCon <- function(akce) {
   user    = "remote",
   password    = "grafana",
   host = "localhost",
-  port = 3302)
+  port = 3302,
+  encoding = "UTF-8")
   
 }

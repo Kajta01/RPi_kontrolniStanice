@@ -1,4 +1,4 @@
-Sys.setlocale(category = 'LC_ALL', 'Czech')
+Sys.setlocale('LC_ALL','en_US.UTF-8')
 
 updateData <- function(akceDatabaze){
   
@@ -12,7 +12,7 @@ updateData <- function(akceDatabaze){
     conAkce <<- getActionCon(Akce)
     #browser()
   }  
-  
+  dbSendQuery(conAkce,'set character set "utf8"')
   Stanoviste_DB <<- dbReadTable(conAkce, "Stanoviste") %>%
     rename(ID_Stanoviste = "ID")
   Zavod_DB <<- DBI::dbReadTable(conAkce, "Zavod")
@@ -28,6 +28,10 @@ updateData <- function(akceDatabaze){
   
   Skupiny_DB <<- dbReadTable(conAkce, "Skupina")%>%
     rename(ID_Skupina = "ID") %>% rename(NazevSkupiny = "Nazev")
+  
+  Vysledky_DB <<- dbReadTable(conAkce, "V_0_FINAL")
+
+  
   
   ################################################################
   UcastniciZivoty <<- left_join(Ucastnici_DB,Zivoty_DB, by="ID_Ucastnik" )
@@ -88,6 +92,13 @@ updateData <- function(akceDatabaze){
   CasPosledniVCili <<- tail((Zavod_DB %>% arrange(Cas))$Cas,1)
   
   SeznamStanovist <<-unique((StanovisteSkupinyZavod %>% arrange(Poradi) )$NazevStanoviste)
-  
+  #############################################################################################
+  StanovistePocetU <<-StanovisteSkupinyZavodUcast %>%
+    
+    filter(ID_Stanoviste != ID_Start) %>% 
+    filter(ID_Stanoviste != ID_Cil) %>% 
+    distinct(ID_Stanoviste, Id_Prezdivka) %>%
+    group_by(Id_Prezdivka)%>%
+    summarise(Pocet = n())
   
 }

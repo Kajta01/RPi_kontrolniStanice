@@ -120,3 +120,8 @@ getUcastniciGraf <- function(ucastnici){
 # seznamUcastniku<<- Ucastnici_DB$ID_Cip
 
 gradientFunction <- colorRampPalette(c("red", "blue", "green"))
+
+
+
+
+

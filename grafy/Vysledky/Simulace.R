@@ -30,38 +30,7 @@ uiSimAbsolutePanelInfo <- function() {
         ),
         HTML("<hr class='hr'>"),
         
-        HTML("<p style='text-align: center;'>Kapacita baterie</p>"),
-        
-        HTML(
-          "<div style='display: inline-block'>100%<br>
-        <div style='position: relative; display: inline-block'
-         class='awesome-marker-icon-green awesome-marker icon-panel'>
-         </div></div>"
-        ),
-        HTML(
-          "<div style='position: relative; display: inline-block'
-         class='awesome-marker-icon-orange awesome-marker icon-panel'>
-         </div>"
-        ),
-        HTML(
-          "<div style='position: relative; display: inline-block'
-         class='awesome-marker-icon-red awesome-marker icon-panel'>
-        </i></div>"
-        ),
-        HTML(
-          "<div style='position: relative; display: inline-block'
-         class='awesome-marker-icon-darkred awesome-marker icon-panel'>
-        </i></div>"
-        ),
-        HTML(
-          "<div style='display: inline-block; text-align: center;'>0%<br>
-        <div style='position: relative; display: inline-block'
-         class='awesome-marker-icon-gray awesome-marker icon-panel'>
-        </i></div></div>"
-        ),
-        
-        
-        HTML("<hr class='hr'>"),
+       
         HTML("<p style='text-align: center;'>Počet účastníků</p>"),
         
         

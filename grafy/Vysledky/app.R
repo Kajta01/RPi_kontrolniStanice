@@ -1,4 +1,4 @@
-Sys.setlocale(category = 'LC_ALL', 'Czech')
+Sys.setlocale('LC_ALL','en_US.UTF-8')
 
 library(shiny)
 library(shinydashboard)
@@ -9,6 +9,7 @@ library(plotly)
 library(Cairo)
 library(lubridate)
 library(geosphere)
+
 
 options(bitmapType='cairo')
 
@@ -56,12 +57,16 @@ ui <- dashboardPage(
         tabName = "prehled",
         uiOutput("aktualniDatabaze"),
         valueBoxOutput("celkovyCas"),
-        valueBoxOutput("nejStanoviste"),
-        valueBoxOutput("pocetUcast"),
         valueBoxOutput("casDobehu"),
+        valueBoxOutput("delkaTrasy"),
+        
+        
+        valueBoxOutput("pocetUcast"),
         valueBoxOutput("pocetZivotu"),
         valueBoxOutput("pocetZivychMrtvych"),
-        valueBoxOutput("delkaTrasy")
+        
+        valueBoxOutput("nejStanoviste")
+        
         
         
         
@@ -103,12 +108,8 @@ server <- function(input, output, session) {
     }
     
   }, ignoreInit = T)
-  output$table <- renderDataTable(Stanoviste_DB)
-  output$myList <- renderUI({
-    
-    renderSliderSimulace()
-    
-  })
+  output$table <- renderDataTable(Vysledky_DB)
+
   
   ###################################################################
   ##### #Simulace
@@ -131,17 +132,23 @@ server <- function(input, output, session) {
       SimulaceProxy(input$timeSliderSim, input$velikost)
     }})
   
+  output$myList <- renderUI({
+    
+    renderSliderSimulace()
+    
+  })
+  
   ###################################################################
   ##### Přehled
   ##################################################################
   
   output$aktualniDatabaze <-renderUI({
-    h1(getAktualAkce(), width = 12)
+    h1(paste("Výsledky závodu",getAktualAkce()), width = 12)
   })
   
 
   output$celkovyCas <- renderValueBox({
-    valueBox( celkovyCasHodnota(), "Celkový naběhaný čas", icon = icon("list"),color = "purple" )})
+    valueBox( celkovyCasHodnota(), "Celkový naběhaný čas", icon = icon("clock"),color = "purple" )})
   
   output$nejStanoviste <- renderValueBox({
     valueBox( nejlepsiStanoviste(), "Nejvíce navštěvované stanoviště", icon = icon("list"),color = "blue" )})
@@ -150,7 +157,7 @@ server <- function(input, output, session) {
     valueBox( pocetUcastniku(), "Počet účastníků", icon = icon("users"),color = "green" )})
   
   output$casDobehu <- renderValueBox({
-    valueBox( casDobehu(), "Čas v cíli", icon = icon("users"),color = "green" )})
+    valueBox( casDobehu(), "Čas doběhu první / poslední", icon = icon("flag-checkered"),color = "purple" )})
   
   output$pocetZivotu <- renderValueBox({
     valueBox( pocetZivotu(), "Počet odebraných životů", icon = icon("users"),color = "green" )})
@@ -159,7 +166,7 @@ server <- function(input, output, session) {
     valueBox( pocetZivychMrtvych(), "Počet živých / mrtvých", icon = icon("users"),color = "green" )})
   
   output$delkaTrasy <- renderValueBox({
-    valueBox( delkaTrasy(), "Délka trasy", icon = icon("route"),color = "blue" )})
+    valueBox( delkaTrasy(), "Délka trasy", icon = icon("route"),color = "purple" )})
   
   
   ###################################################################
@@ -181,7 +188,19 @@ server <- function(input, output, session) {
   ##### Stanoviste
   ##################################################################
   output$pocetStanoviste <- renderPlotly({ getStanovisteGraf() })
+  output$pocetNavstivenych<- renderPlotly({ getPocetNavstivenychGraf() })
   
+  output$pocetStanovistCelkem <- renderValueBox({
+    valueBox( paste(length(SeznamStanovist)-2," + 2"), HTML("Úkolových a probíhacích skupin stanovišť (+ start a cíl)"),color = "purple" )})
+  output$pocetStanovistUkolovych <- renderValueBox({
+    valueBox( count(Stanoviste_DB%>%filter(Ukolove == 1)), "Úkolových stanoviště",color = "blue" )})
+  
+  output$pocetStanovistPobihacich <- renderValueBox({
+    valueBox( paste(length(unique(Stanoviste_DB$ID_Skupina))-1,"/",
+                    count(Stanoviste_DB%>%filter(Ukolove == 0))),
+              HTML( "Skupiny probíhacích stanovišť / celkem probíhacích stanovišť"),color = "blue" )})
+  output$pocetStanovistVse<- renderValueBox({
+    valueBox( count(Stanoviste_DB), "Celkem všech stanovišť",color = "purple" )})
 }
 
 
