@@ -1,4 +1,4 @@
-Sys.setlocale('LC_ALL','en_US.UTF-8')
+Sys.setlocale(category = 'LC_ALL', 'Czech')
 
 updateData <- function(akceDatabaze){
   
@@ -29,10 +29,9 @@ updateData <- function(akceDatabaze){
   Skupiny_DB <<- dbReadTable(conAkce, "Skupina")%>%
     rename(ID_Skupina = "ID") %>% rename(NazevSkupiny = "Nazev")
   
-  Vysledky_DB <<- dbReadTable(conAkce, "V_0_FINAL")
+  Vysledky_DB <<- dbReadTable(conAkce, "V_0_FINAL", encoding = "UTF-8")
+  
 
-  
-  
   ################################################################
   UcastniciZivoty <<- left_join(Ucastnici_DB,Zivoty_DB, by="ID_Ucastnik" )
   
@@ -49,7 +48,8 @@ updateData <- function(akceDatabaze){
   
   StanovisteSkupiny <<- left_join(Stanoviste_DB, Skupiny_DB, "ID_Skupina")%>%
     mutate(
-      NazevStanoviste = ifelse(NazevSkupiny == "NULL", Nazev,NazevSkupiny)
+      NazevStanoviste = ifelse(NazevSkupiny != "NULL", NazevSkupiny,
+                               ifelse(Ukolove == 2,Nazev, paste(Nazev,"<br>",Popis)))
     )
   
   

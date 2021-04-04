@@ -1,4 +1,4 @@
-Sys.setlocale('LC_ALL','en_US.UTF-8')
+Sys.setlocale(category = 'LC_ALL', 'Czech')
 
 library(shiny)
 library(shinydashboard)
@@ -9,7 +9,6 @@ library(plotly)
 library(Cairo)
 library(lubridate)
 library(geosphere)
-
 
 options(bitmapType='cairo')
 

@@ -1,9 +1,10 @@
 *{
   font-family: sans-serif !important;
 }
+
 .main-header .sidebar-toggle {
-  font-family: fontAwesome, 'Font Awesome 5 Free' !important;
-  font-weight: 900;
+    font-family: fontAwesome, 'Font Awesome 5 Free' !important;
+    font-weight: 900;
 }
 
 /***** SIMULACE ****/
