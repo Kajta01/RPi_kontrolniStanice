@@ -22,7 +22,7 @@ function SeznamVsechStanovist(){
 function SeznamSkupinStanovist(){
 
     $conn = getdb();
-    $sql = "SELECT * FROM Skupina";
+    $sql = "SELECT * FROM Skupina where ID != 0";
     $result = mysqli_query($conn, $sql);
 
     mysqli_close($conn);
@@ -98,7 +98,15 @@ function setDB($username)
     return  $result;
 
 }
+function getAllTable(){
+    $conn = getdbApp();
+    $sql = "SELECT TABLE_NAME 
+                FROM INFORMATION_SCHEMA.TABLES
+                WHERE TABLE_SCHEMA='".AktualniAkce()."' or TABLE_SCHEMA='App'
+                ORDER by TABLE_NAME";
+    $result = mysqli_query($conn, $sql);
+    mysqli_close($conn);
 
-//StanovisteBodyTabulka("aaaaa");
-
+    return  $result;
+}
 ?>
