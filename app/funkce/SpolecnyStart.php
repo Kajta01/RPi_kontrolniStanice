@@ -12,12 +12,8 @@ foreach ($_POST as $key => $value) {
         echo $sql ."<br>";
         $result = mysqli_query($conn, $sql);
         echo mysqli_error($conn);
-    }
-
-   
+    }  
 }
-
-
 }
 
 ?>
@@ -31,16 +27,17 @@ foreach ($_POST as $key => $value) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="../stylesheet.css">
+    <link rel="stylesheet" href="../../stylesheet.css">
 </head>
 
 <body>
 
     <body class="body">
+    <?php include '../headerStatus.php';?>
         <div class="container">
 
             <h1>Společný start</h1>
