@@ -1,3 +1,4 @@
+<?php include_once 'config.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,17 +6,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src='https://use.fontawesome.com/releases/v5.15.2/js/all.js'data-auto-a11y='true'></script>
+  
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="TabulkaEdit.js"></script>
-  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="../stylesheet.css">
 </head>
 
 <body class="body">
 <?php include 'headerStatus.php'; ?>
-  <?php include_once 'headerEdit.php'; ?>
+ 
 
   <div class="container">
     <div id="displaymessage" class= "message"></div>
@@ -25,7 +29,7 @@
     }else{
         echo '<h1><e id="Tabulka">'. $_GET['Nazev']."</e> - ".$_GET['Popis'] . "</h1>";
     }?>
-
+ <?php include_once 'headerEdit.php'; ?>
        <!-- CSV file upload form   style="display: none;" -->
        <div class="col-md-12" id="importFrm" style="display: none;" >
         <form action="ajaxImportData.php" method="post" enctype="multipart/form-data">
@@ -37,13 +41,13 @@
     
 
     <?php
-    include_once 'config.php';
+    
     $nazev = $_GET['Nazev'];
 
     $conn = getdb();
     $sql = "SHOW COLUMNS FROM $nazev";
     $result = mysqli_query($conn, $sql);
-    echo '<table class="table table-bordered table-edit" id="table"> <thead><tr>';
+    echo '<table class="table table-bordered table-edit table-striped" id="table"> <thead><tr>';
     $i = 0;
     while ($rowN = mysqli_fetch_array($result)) {
       echo '<th id="'.$rowN['Field'].'">' . $rowN['Field'] . "</th>";
@@ -63,9 +67,9 @@
         echo "<td id=".$nadpis.">" . $data[$nadpis] . "</td>";
       }
       echo '<td>
-                <a class="add" title="Add" data-toggle="tooltip"><i class="fa fa-plus"></i></a>
-                <a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a>
-                <a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-trash-o"></i></a>
+                <a class="add" title="Add" data-toggle="tooltip"><i class="fas fa-plus"></i></a>
+                <a class="edit" title="Edit" data-toggle="tooltip"><i class="fas fa-pencil-alt"></i></a>
+                <a class="delete" title="Delete" data-toggle="tooltip"><i class="fas fa-trash-alt"></i></a>
                 </td>';
       echo "</tr>";
     }

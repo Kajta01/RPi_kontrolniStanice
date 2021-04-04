@@ -106,7 +106,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
                 <select class="form-control" id="zavod" name="zavod" value="Vyberte">
                     <option value="" selected disabled hidden>Vyberte:</option>
-                    <option value="opice" >opice</option>
                     <?php                  
                     $result = getVsechnyAkce();
                     while ($data = mysqli_fetch_array($result)) {                   
@@ -131,7 +130,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         
 
-            <div class="btn btn-secondary"><a href="/" onclick="javascript:event.target.port=3355">Výsledky závodů</a></div>
+            <div class="btn btn-secondary"><a href="/Vysledky" >Výsledky závodů</a></div>
 
     </div>
 
