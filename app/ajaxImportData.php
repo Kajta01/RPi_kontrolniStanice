@@ -57,6 +57,7 @@ if (isset($_POST['importSubmit'])) {
         }
     } else {
         $qstring = '?status=invalid_file';
+        echo "Invalid file";
     }
 }
 
