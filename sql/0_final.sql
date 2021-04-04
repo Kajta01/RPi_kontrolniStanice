@@ -2,7 +2,7 @@
 SELECT 
     ID_Ucastnik, 
     Prezdivka,  
-    Zivoty,
+    Zivoty as ZtraceneZivoty,
     CasNaTrase,
     CekaciCas,
     RUN,
