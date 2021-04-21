@@ -1,3 +1,4 @@
+Sys.setlocale(category = 'LC_ALL', 'Czech')
 library(shiny)
 library(leaflet)
 library(tidyverse)
@@ -12,10 +13,11 @@ source("../databaze.R")
 UpdateDataTable <- function() {
   Stanoviste <<- DBI::dbReadTable(conAkce, "Stanoviste")
   idMax <<- (Stanoviste %>% arrange(desc(ID_Skupina)) %>% drop_na(ID_Skupina))$ID_Skupina[1]
-
+  if(is.na(idMax)){idMax = 0 }
   
-  TTN_DataDB <<- DBI::dbReadTable(conApp, "TTN_Data") 
-  
+  TTN_DataDB <<- DBI::dbReadTable(conApp, "TTN_Data") %>%
+  filter(Akce == "AkceDB")
+  dbSendQuery(conAkce,'set character set "utf8"')
   
   
   TTN_Time <<- TTN_DataDB %>%

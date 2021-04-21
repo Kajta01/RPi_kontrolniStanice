@@ -6,7 +6,7 @@ source("../databaze.R")
 
 Stanoviste <- DBI::dbReadTable(conAkce, "Stanoviste")
 idMax = (Stanoviste %>% arrange(desc(ID_Skupina)) %>% drop_na(ID_Skupina))$ID_Skupina[1]
-
+if(is.na(idMax)){idMax = 0 }
 
 PocetStanovist = (count(Stanoviste)$n[1])
 E = (Stanoviste$GPSE[1] + Stanoviste$GPSE[PocetStanovist]) / 2
