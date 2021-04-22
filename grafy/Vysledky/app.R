@@ -9,7 +9,6 @@ library(plotly)
 library(Cairo)
 library(lubridate)
 library(geosphere)
-
 options(bitmapType='cairo')
 
 source("../databaze.R")
@@ -97,8 +96,8 @@ ui <- dashboardPage(
 
 server <- function(input, output, session) {
   
-  
-  observeEvent(input$zmenaAkce,{
+  if(count(Zavod_DB) != 0){
+    observeEvent(input$zmenaAkce,{
     
     if(input$akceS != Akce){
       updateData(input$akceS)
@@ -108,7 +107,7 @@ server <- function(input, output, session) {
     
   }, ignoreInit = T)
   output$table <- renderDataTable(Vysledky_DB)
-
+  
   
   ###################################################################
   ##### #Simulace
@@ -116,9 +115,9 @@ server <- function(input, output, session) {
   
   output$mapaSimulace <- renderLeaflet({ getMapaSimulace()})
   observeEvent(input$timeSliderSim,{
-    
+
     SimulaceProxy(input$timeSliderSim, input$velikost) },ignoreInit = T, ignoreNULL = T)
-  
+
   observeEvent(input$krok,{
     if(!is.na(input$krok )){
       if(input$krok < 0) {updateNumericInput(session,"krok", value = 1)}
@@ -130,11 +129,11 @@ server <- function(input, output, session) {
       if(input$velikost < 0) {updateNumericInput(session,"velikost", value = 1)}
       SimulaceProxy(input$timeSliderSim, input$velikost)
     }})
-  
+
   output$myList <- renderUI({
-    
+
     renderSliderSimulace()
-    
+
   })
   
   ###################################################################
@@ -144,62 +143,72 @@ server <- function(input, output, session) {
   output$aktualniDatabaze <-renderUI({
     h1(paste("Výsledky závodu",getAktualAkce()), width = 12)
   })
-  
+
 
   output$celkovyCas <- renderValueBox({
     valueBox( celkovyCasHodnota(), "Celkový naběhaný čas", icon = icon("clock"),color = "purple" )})
-  
+
   output$nejStanoviste <- renderValueBox({
     valueBox( nejlepsiStanoviste(), "Nejvíce navštěvované stanoviště", icon = icon("list"),color = "blue" )})
-  
+
   output$pocetUcast <- renderValueBox({
     valueBox( pocetUcastniku(), "Počet účastníků", icon = icon("users"),color = "green" )})
-  
+
   output$casDobehu <- renderValueBox({
     valueBox( casDobehu(), "Čas doběhu první / poslední", icon = icon("flag-checkered"),color = "purple" )})
-  
+
   output$pocetZivotu <- renderValueBox({
     valueBox( pocetZivotu(), "Počet odebraných životů", icon = icon("users"),color = "green" )})
-  
+
   output$pocetZivychMrtvych <- renderValueBox({
     valueBox( pocetZivychMrtvych(), "Počet živých / mrtvých", icon = icon("users"),color = "green" )})
-  
+
   output$delkaTrasy <- renderValueBox({
     valueBox( delkaTrasy(), "Délka trasy", icon = icon("route"),color = "purple" )})
-  
+
   
   ###################################################################
   ##### Ucastnnici
   ##################################################################
   
   updateSelectizeInput(session, 'ucastnikS', choices = SeznamUcastniku, server = TRUE)
-  output$mapaUcastnici <- renderLeaflet({ getUcastniciMapa()})
-  
-  
+  output$mapaUcastnici <- renderLeaflet({
+    getUcastniciMapa()
+
+    })
+
+
   observeEvent(input$ucastnikS, {
     proxyPohybUcastniku(input$ucastnikS)
-    
+
   }, ignoreNULL  = F)
-  
+
   output$ucastStanoviste <- renderPlotly({ getUcastniciGraf(input$ucastnikS) })
-  
+
   ###################################################################
   ##### Stanoviste
   ##################################################################
   output$pocetStanoviste <- renderPlotly({ getStanovisteGraf() })
   output$pocetNavstivenych<- renderPlotly({ getPocetNavstivenychGraf() })
-  
+
   output$pocetStanovistCelkem <- renderValueBox({
     valueBox( paste(length(SeznamStanovist)-2," + 2"), HTML("Úkolových a probíhacích skupin stanovišť (+ start a cíl)"),color = "purple" )})
   output$pocetStanovistUkolovych <- renderValueBox({
     valueBox( count(Stanoviste_DB%>%filter(Ukolove == 1)), "Úkolových stanoviště",color = "blue" )})
-  
+
   output$pocetStanovistPobihacich <- renderValueBox({
     valueBox( paste(length(unique(Stanoviste_DB$ID_Skupina))-1,"/",
                     count(Stanoviste_DB%>%filter(Ukolove == 0))),
               HTML( "Skupiny probíhacích stanovišť / celkem probíhacích stanovišť"),color = "blue" )})
   output$pocetStanovistVse<- renderValueBox({
     valueBox( count(Stanoviste_DB), "Celkem všech stanovišť",color = "purple" )})
+  }
+
+else{
+  output$aktualniDatabaze <-renderUI({
+    h1(paste("Žádné data pro",getAktualAkce()), width = 12)
+  })
+}
 }
 
 

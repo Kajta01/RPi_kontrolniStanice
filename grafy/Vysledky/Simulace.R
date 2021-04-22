@@ -207,7 +207,7 @@ SimulaceProxy <- function(input, inVelikost) {
     velikost =  inVelikost
     Skupina <<- ifelse(Skupina == "n", "s","n")
     AktualiCas <<- cas
-    
+
     Zavod_DB_F <<- Zavod_DB %>%
       filter(Cas <= cas)
     Zavod_Stanoviste <<-  Zavod_DB_F %>%
@@ -217,18 +217,18 @@ SimulaceProxy <- function(input, inVelikost) {
         Posledni = last(Cas),
         Pocet = n(),
         Rozdil = round(difftime(AktualiCas,last(Cas),units = "mins"),2)
-      ) 
-    
-    Zavod_Stanoviste <<- left_join(Stanoviste_DB, Zavod_Stanoviste, by = "ID_Stanoviste")%>% 
+      )
+
+    Zavod_Stanoviste <<- left_join(Stanoviste_DB, Zavod_Stanoviste, by = "ID_Stanoviste")%>%
       select( GPSE, GPSN, Pocet, Rozdil)
-    
+
     mapa <-  leafletProxy("mapaSimulace", data = Zavod_Stanoviste) %>%
       addCircleMarkers(~ GPSE ,
                        ~ GPSN,
                        color = getColorCas(Zavod_Stanoviste),
                        group = Skupina,
                        radius = ~ Pocet * velikost)
-    
+
     if (Skupina == "s") {
       leafletProxy('mapaSimulace') %>% clearGroup(group = "n")
     } else {

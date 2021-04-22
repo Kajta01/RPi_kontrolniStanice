@@ -1,6 +1,7 @@
 Sys.setlocale(category = 'LC_ALL', 'Czech')
 
 updateData <- function(akceDatabaze){
+  #browser()
   
   if(is.null(akceDatabaze)){
     conAkce <<- getDefaultActionCon
@@ -100,5 +101,5 @@ updateData <- function(akceDatabaze){
     distinct(ID_Stanoviste, Id_Prezdivka) %>%
     group_by(Id_Prezdivka)%>%
     summarise(Pocet = n())
-  
+ 
 }

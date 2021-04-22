@@ -16,7 +16,7 @@ UpdateDataTable <- function() {
   if(is.na(idMax)){idMax = 0 }
   
   TTN_DataDB <<- DBI::dbReadTable(conApp, "TTN_Data") %>%
-  filter(Akce == "AkceDB")
+  filter(Akce == AkceDB)
   dbSendQuery(conAkce,'set character set "utf8"')
   
   
