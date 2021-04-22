@@ -1,3 +1,4 @@
+CREATE VIEW V_000_Vysledky AS 
 SELECT
 Ucastnik.ID as ID_Ucastnik,
 Ucastnik.Prezdivka,

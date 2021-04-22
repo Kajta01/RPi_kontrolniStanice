@@ -10,8 +10,11 @@ IF(COUNT(Zavod.ID)=1,0_Pravidla.ProbihaciStanoviste , 0_Pravidla.UkoloveStanovis
 
 from 0_Pravidla, Zavod
 INNER JOIN Ucastnik on Ucastnik.ID_Cip = Zavod.ID_Cip
-where Zavod.ID_Stanoviste = "CP_01"
+INNER JOIN Stanoviste on Stanoviste.ID = Zavod.ID_Stanoviste
+where Stanoviste.Nazev = "CP_01"
 group by Ucastnik.id;
+
+
 
 CREATE VIEW `V_CP_02` AS
 SELECT 
@@ -25,7 +28,8 @@ IF(COUNT(Zavod.ID)=1,0_Pravidla.ProbihaciStanoviste , 0_Pravidla.UkoloveStanovis
 
 from 0_Pravidla, Zavod
 INNER JOIN Ucastnik on Ucastnik.ID_Cip = Zavod.ID_Cip
-where Zavod.ID_Stanoviste = "CP_02"
+INNER JOIN Stanoviste on Stanoviste.ID = Zavod.ID_Stanoviste
+where Stanoviste.Nazev = "CP_02"
 group by Ucastnik.id;
 
 CREATE VIEW `V_CP_03` AS
@@ -40,7 +44,8 @@ IF(COUNT(Zavod.ID)=1,0_Pravidla.ProbihaciStanoviste , 0_Pravidla.UkoloveStanovis
 
 from 0_Pravidla, Zavod
 INNER JOIN Ucastnik on Ucastnik.ID_Cip = Zavod.ID_Cip
-where Zavod.ID_Stanoviste = "CP_03"
+INNER JOIN Stanoviste on Stanoviste.ID = Zavod.ID_Stanoviste
+where Stanoviste.Nazev = "CP_03"
 group by Ucastnik.id;
 
 CREATE VIEW `V_CP_04` AS
@@ -55,7 +60,8 @@ IF(COUNT(Zavod.ID)=1,0_Pravidla.ProbihaciStanoviste , 0_Pravidla.UkoloveStanovis
 
 from 0_Pravidla, Zavod
 INNER JOIN Ucastnik on Ucastnik.ID_Cip = Zavod.ID_Cip
-where Zavod.ID_Stanoviste = "CP_04"
+INNER JOIN Stanoviste on Stanoviste.ID = Zavod.ID_Stanoviste
+where Stanoviste.Nazev = "CP_04"
 group by Ucastnik.id;
 
 CREATE VIEW `V_CP_05` AS
@@ -70,5 +76,6 @@ IF(COUNT(Zavod.ID)=1,0_Pravidla.ProbihaciStanoviste , 0_Pravidla.UkoloveStanovis
 
 from 0_Pravidla, Zavod
 INNER JOIN Ucastnik on Ucastnik.ID_Cip = Zavod.ID_Cip
-where Zavod.ID_Stanoviste = "CP_05"
+INNER JOIN Stanoviste on Stanoviste.ID = Zavod.ID_Stanoviste
+where Stanoviste.Nazev = "CP_05"
 group by Ucastnik.id;

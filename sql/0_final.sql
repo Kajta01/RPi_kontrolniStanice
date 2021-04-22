@@ -1,4 +1,4 @@
-
+CREATE VIEW V_0_FINAL AS 
 SELECT 
     ID_Ucastnik, 
     Prezdivka,  
