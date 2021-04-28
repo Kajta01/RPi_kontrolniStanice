@@ -100,7 +100,7 @@ $(document).ready(function () {
                 $("#displaymessage").addClass("view");
                 setTimeout(function () {
                     $("#displaymessage").html("");
-                    $("table tbody tr.importantRedBackground").removeClass("importantGreenBackground").hide();
+                    $("table tbody tr.importantRedBackground").removeClass("importantRedBackground");
                     $("table tbody tr.importantGreenBackground").removeClass("importantGreenBackground");
                     $("#displaymessage").removeClass("view");
 
@@ -125,10 +125,11 @@ $(document).ready(function () {
         $(".add-new").removeAttr("disabled");
         var id = $(this).attr("id");
         var string = id;
-        $.post("ajax_delete.php", { string: string }, function (data) {
+        $.post("ajaxDeleteRow.php", { string: string }, function (data) {
             $("#displaymessage").html(data);
         });
     });
+    
     // update rec row on edit button click
     $(document).on("click", ".update", function () {
         var tabulka = document.getElementById('Tabulka').textContent;

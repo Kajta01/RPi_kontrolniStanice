@@ -54,7 +54,7 @@ ggplotly((
 StanovistePocetU %>%
   ggplot(aes(x = Pocet))+
   geom_bar()+
-  scale_x_continuous(breaks = c(0:100), limits = c(0,length(SeznamStanovist)-2))+
+  scale_x_continuous(breaks = c(0:100), limits = c(0,length(SeznamStanovist)-1))+
   scale_y_continuous(breaks = c(0:100))+
   aes(
   text = paste(

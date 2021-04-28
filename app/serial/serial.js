@@ -13,7 +13,7 @@ class SerialLEDController {
                 this.reader = port.readable.getReader();
                 this.readable = port.readable;
                 const decoder = new TextDecoderStream();
-                this.inputDone = port.readable.pipeTo(decoder.writable);
+                //this.inputDone = port.readable.pipeTo(decoder.writable);
 
                 this.writer = port.writable.getWriter();
                 let signals = await port.getSignals();
@@ -25,7 +25,7 @@ class SerialLEDController {
                 btcCon.classList.add("btn-success");
                 btcCon.classList.remove("btn-primary");
                 btcCon.classList.remove("btn-warning");
-                btcCon.innerHTML = "Connented to USB";
+                btcCon.innerHTML = "Připojeno k USB";
             }
             catch (err) {
                 console.error('There was an error opening the serial port:', err);
@@ -112,6 +112,7 @@ function addRowTable(data) {
             if (c == 0) {
                 if((data[id] << 8) + data[id + 1] == 65535) return;
                 row = table.insertRow(0);
+                row.classList.add("NDB");
                 cell = row.insertCell(c);
                 cell.innerHTML = (data[id] << 8) + data[id + 1];
                 c++;
@@ -126,6 +127,7 @@ function addRowTable(data) {
             }
 
         }
+        
 
 
 }
@@ -147,5 +149,5 @@ navigator.serial.addEventListener("disconnect", (event) => {
     var btcCon = document.getElementById("btn-connect");
               btcCon.classList.remove("btn-success");
               btcCon.classList.add("btn-warning");
-              btcCon.innerHTML = "Disconnented to USB";
+              btcCon.innerHTML = "Odpojeno od USB";
 });

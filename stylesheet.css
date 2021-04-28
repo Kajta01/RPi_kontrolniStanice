@@ -364,3 +364,10 @@ table .border{
 .tab.active {
 	display:block;
 }
+/***********************/
+.NDB{
+    background-color: lightyellow;;
+}
+.DB{
+    background-color: lightgreen;;
+}

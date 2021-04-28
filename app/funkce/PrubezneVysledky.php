@@ -10,6 +10,7 @@
 
 
     <link rel="stylesheet" href="../../stylesheet.css">
+
 </head>
 <body class="body">
 <?php include '../headerStatus.php';?>
@@ -30,7 +31,7 @@
             <colgroup>
                 <col span="3" >
                 <col span="1" class="border">
-                <col span="4" >
+                <col span="3" >
                 <col span="1" class="border">
                 <col span="6" >
                 <col span="1" class="border">
@@ -47,7 +48,7 @@
             <thead><tr>';
             $i = 0;
             while($rowN = mysqli_fetch_array($result)){
-                echo'<th>'. $rowN['Field']."</th>";
+                echo'<th class="'.$rowN['Field'].'">'. $rowN['Field']."</th>";
                 
                 $Nadpisy[$i] = $rowN['Field'] ;
                 $i=$i + 1;

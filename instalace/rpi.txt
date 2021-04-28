@@ -11,12 +11,20 @@ sudo sh instal.sh
 
 R 
 install.packages("tidyverse")
+install.packages("shiny")
+install.packages("leaflet")
+install.packages("RMySQL")
+install.packages("shinydashboard")
+install.packages("shinyBS")
+install.packages("plotly")
+install.packages("lubridate")
+install.packages("geosphere")
 
 R 
 install.packages("tidyverse")
 rvest’, ‘xml2’
 
-install.packages("shiny")
+
 
 https://shiny.oxshef.io/deploy_embedding-shiny-apps.html
 
@@ -25,7 +33,12 @@ https://shiny.oxshef.io/deploy_embedding-shiny-apps.html
 install.packages("shiny.router")
 
 
-install.packages("leaflet")
+
 
 
 install.packages("RMySQL")
+
+
+/etc/rc.local
+
+install.packages("textclean", .libPaths()[2])

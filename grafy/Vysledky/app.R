@@ -18,7 +18,6 @@ source("Prehled.R", encoding = "UTF-8")
 source("Ucastnici.R", encoding = "UTF-8")
 source("Stanoviste.R", encoding = "UTF-8")
 
-
 updateData(NULL)
 
 ui <- dashboardPage(

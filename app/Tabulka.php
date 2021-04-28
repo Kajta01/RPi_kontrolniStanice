@@ -33,13 +33,19 @@
         if($_GET['Edit'] != "N") {include 'header.php';}
         
         $nazev = $_GET['Nazev'];
-        if ($nazev == "TTN_Data") {
+        if (($nazev == "TTN_Data" ) && ($_GET['Edit'] != "N")) {
             $conn = getdbApp();
+            $akce = AktualniAkce();
+            $sql = "SELECT * FROM $nazev where Akce = '$akce' ";
+        } else if(($nazev == "TTN_Data" )) { 
+            $conn = getdbApp(); 
+            $sql = "SELECT * FROM $nazev"; 
         } else {
             $conn = getdb();
+            $sql = "SELECT * FROM $nazev";
         }
-        $sql = "SHOW COLUMNS FROM $nazev";
-        $result = mysqli_query($conn, $sql);
+        $sqlC = "SHOW COLUMNS FROM $nazev";
+        $result = mysqli_query($conn, $sqlC);
         echo '<div class="table-responsive">';
         echo '<table class="table data-view table-bordered table-striped"> <thead><tr>';
         $i = 0;
@@ -50,7 +56,7 @@
         }
         echo "</thead> <tbody>";
 
-        $sql = "SELECT * FROM $nazev";
+        
         $result = mysqli_query($conn, $sql);
 
         while ($data = mysqli_fetch_array($result)) {

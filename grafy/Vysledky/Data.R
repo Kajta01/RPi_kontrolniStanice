@@ -47,10 +47,9 @@ updateData <- function(akceDatabaze){
   ID_Start <<- (Stanoviste_DB %>% filter(Nazev == "START"))$ID_Stanoviste
   ID_Cil <<- (Stanoviste_DB %>% filter(Nazev == "CIL"))$ID_Stanoviste
   
-  StanovisteSkupiny <<- left_join(Stanoviste_DB, Skupiny_DB, "ID_Skupina")%>%
+ StanovisteSkupiny <<- left_join(Stanoviste_DB, Skupiny_DB, "ID_Skupina")%>%
     mutate(
-      NazevStanoviste = ifelse(NazevSkupiny != "NULL", NazevSkupiny,
-                               ifelse(Ukolove == 2,Nazev, paste(Nazev,"<br>",Popis)))
+      NazevStanoviste = ifelse( is.na(ID_Skupina) , ifelse(Popis != "",paste(Nazev,"<br>",Popis),Nazev), NazevSkupiny)
     )
   
   

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <?php include '../headerStatus.php'; 
+  <?php include '../headerStatus.php';
   ?>
   <h1>Komunikace USB</h1>
   <div class="container">
@@ -20,20 +20,21 @@
 
     </div>
     <div id="connent" class="m-2">
-      <button id="btn-connect" class="btn btn-primary">Connect to USB</button>
+      <button id="btn-connect" class="btn btn-primary">Připojit USB</button>
     </div>
 
     <div class="tabs">
       <ul class="tab-links nav nav-tabs">
         <li class="nav-item active"><a class="nav-link" href="#tab1">Data o průchodech</a></li>
-        <li class="nav-item"><a class="nav-link" href="#tab2">Aktalizace času</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab2">Zápis ID čipu</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tab3">Aktalizace času</a></li>
       </ul>
       <!-- Data z čipů -->
       <div class="tab-content">
         <div id="tab1" class="tab active">
           <p>Po přiložení čipu načte záznamy o průchodech.</p>
           <div class="row justify-content-center">
-          <div class="col-6 border-end position-relative">
+            <div class="col-6 border-end position-relative">
               <div class="form-check form-switch  position-absolute top-50 start-50 translate-middle">
                 <input class="form-check-input" type="checkbox" id="btn-read-data">
                 <label class="form-check-label" for="btn-read-data">Spustit čtení</label>
@@ -51,7 +52,7 @@
                 <label class="form-check-label" for="deleteReadData">Po přečtení smazat</label>
               </div>
             </div>
-     
+
           </div>
 
           <div class="border-top mt-3" style="padding:10px">
@@ -66,20 +67,39 @@
                 <th>CS</th>
               </thead>
               <tbody id="myTableBody">
+                <!-- <tr class="NDB">
+                <td>111</td>
+                <td>10</td>
+                <td>22</td>
+                <td>13</td>
+                <td>11</td>
+                <td>5</td>
+                <td>111</td>
+              </tr> -->
 
               </tbody>
             </table>
           </div>
         </div>
-        <!-- ČAS -->
+        <!-- zapis ID -->
         <div id="tab2" class="tab">
-          <p>Po přiležení čipu k zařízení se na čipe nahraje aktuální čas a nasledně je možné čip přiložit 
+          <p>Po přiležení čipu k zařízení se na čipe nahraje aktuální čas a nasledně je možné čip přiložit
             k zařízení do kterého chcete čas zapsat.</p>
-            <div class="form-check form-switch pl-5">
-                <input class="form-check-input" type="checkbox" id="zapisCasu">
-                <label class="form-check-label" for="zapisCasu">Spustit</label>
-              </div>
-          
+          <div class="form-check form-switch pl-5">
+            <input class="form-check-input" type="checkbox" id="zapisCasu">
+            <label class="form-check-label" for="zapisCasu">Spustit</label>
+          </div>
+
+        </div>
+        <!-- ČAS -->
+        <div id="tab3" class="tab">
+          <p>Po přiležení čipu k zařízení se na čipe nahraje aktuální čas a nasledně je možné čip přiložit
+            k zařízení do kterého chcete čas zapsat.</p>
+          <div class="form-check form-switch pl-5">
+            <input class="form-check-input" type="checkbox" id="zapisCasu">
+            <label class="form-check-label" for="zapisCasu">Spustit</label>
+          </div>
+
         </div>
       </div>
     </div>
@@ -91,37 +111,74 @@
     const serialLEDController = new SerialLEDController();
     const connect = document.getElementById('btn-connect');
     const getSerialMessages = document.getElementById('btn-read-data');
+    const Bdatabase = document.getElementById('databaze');
 
     connect.addEventListener('pointerdown', () => {
       serialLEDController.init();
 
     });
 
+    Bdatabase.addEventListener('pointerdown', () => {
+      //  zapis();
+    });
 
     getSerialMessages.addEventListener('pointerdown', async () => {
-      if(getSerialMessages.classList.contains("run"))
-      {
+      if (getSerialMessages.classList.contains("run")) {
         console.log("stop");
-      getSerialMessages.classList.remove("run");
-      getSerialMessages.classList.add("stop"); 
-      getSerialMessages.innerHTML = "Stop";
-     // await serialLEDController.disconnect();
+        getSerialMessages.classList.remove("run");
+        getSerialMessages.classList.add("stop");
+        getSerialMessages.innerHTML = "Stop";
+        // await serialLEDController.disconnect();
+      } else {
+        getSerialMessages.classList.remove("stop");
+        getSerialMessages.classList.add("run");
+        getSerialMessages.innerHTML = "Run";
+        getSerialMessage();
       }
-      else{
-      getSerialMessages.classList.remove("stop");
-      getSerialMessages.classList.add("run");
-      getSerialMessages.innerHTML = "Run";
-      getSerialMessage();
-      }
+
     });
 
 
 
+
+    function zapis() {
+      con.connect(function(err) {
+        if (err) throw err;
+        console.log("Connected!");
+
+
+      });
+      do {
+        var table = document.getElementById("myTableBody").getElementsByClassName("NDB")[0];
+        if (table != null) {
+
+          var sql = "";
+
+          con.query(sql, function(err, result) {
+            if (err) throw err;
+            console.log("added");
+          });
+
+          console.log(table);
+          table.classList.remove("NDB");
+          table.classList.add("DB");
+          console.log(table.cells[0]);
+
+        }
+      } while (table != null)
+
+    }
+
+
+
+
     async function getSerialMessage() {
-   
+
       await serialLEDController.reconnect();
-      setTimeout(() => {  serialLEDController.write(0x1); }, 5000);
-    
+      setTimeout(() => {
+        serialLEDController.write(0x1);
+      }, 5000);
+
       await serialLEDController.read();
     }
   </script>
