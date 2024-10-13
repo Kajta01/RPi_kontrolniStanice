@@ -21,7 +21,7 @@ FROM (
     V.Zivoty,
     V.ZivotyBody,
     TIMEDIFF(V.Cil,V.Start) as CasNaTrase,
-    (V.RUN_01 + V.RUN_02 + V.RUN_03 + V.RUN_02 + V.RUN_05 + V.RUN_06 + V.RUN_07) as RUN,
+    (V.RUN_01 + V.RUN_02 + V.RUN_03 + V.RUN_04 + V.RUN_05 + V.RUN_06 + V.RUN_07) as RUN,
     (V.CP_01 + V.CP_02 + V.CP_03 + V.CP_04 + V.CP_05) as CP,
     (V.CP_01_RUN + V.CP_02_RUN + V.CP_03_RUN + V.CP_04_RUN +V.CP_05_RUN)  as RUN_CP,
     Time(TIME_FORMAT(SEC_TO_TIME(  TIME_TO_SEC( V.CP_01_T )+TIME_TO_SEC( V.CP_02_T ) +TIME_TO_SEC( V.CP_03_T ) 
